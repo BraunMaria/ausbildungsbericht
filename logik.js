@@ -1,18 +1,23 @@
 var myApp = angular.module('myApp', []);
 
 myApp.controller('MainCtrl', ['$scope',function($scope) {
-    
-    $scope.fruitList = ["Apfel", "Birnen", "Bananen", "Orangen", "Ananas"]
-    $scope.personalList = []
-    $scope.dateList = []
+   
     $scope.btkcontent = []
     $scope.tgk = []
     $scope.bs = []
+    $scope.name = ""
+    $scope.company = ""
+    $scope.field = ""
+    
     
     $scope.savePersonal = function(name, company, abteilung){
-        for ( var i = 0; i <= $scope.personalList.length; i++) {
-            $scope.personalList[i] = new Array(3);
-        }
+        $scope.name = name;
+        $scope.company = company;
+        $scope.field = abteilung;
+    }
+    
+    $scope.changePersonal = function(){
+        
     }
     
     $scope.generateArray = function(){

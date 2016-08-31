@@ -19,13 +19,13 @@
 		<div class="row margin-top-xl">
 			<div class="col-xs-12 col-md-7 margin-bottom-xl margin-top-md greyblock">
 				<label for="fullname">Name: </label>
-				<input ng-model="fullname" class="input" name="fullname" id="fullname" type="text" ng-if="!hide"/>
-				<span id="fullname_print" ng-if="hide"></span>
+				<input ng-model="fullname" class="input" name="fullname" id="fullname" type="text""/>
+				<span id="fullname_print"></span>
 				<div class="row margin-top-lg">
 					<div class="col-xs-12 col-md-6">
 						<label for="company_name">Firma:</label>
-						<div class="col-xs-12" ng-if="!hide">
-							<textarea ng-model="company" class="angaben" name="company_name" id="company_name" type="text" rows="4"></textarea>
+						<div class="col-xs-12">
+							<textarea ng-model="company" class="angaben" name="company_name" id="company_name" type="text" rows="4">{{company}}</textarea>
 						</div>
 					</div>
 					<div class="col-xs-12 col-md-5">
@@ -37,8 +37,8 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 row-centered margin-top-md">
-						<button class="button-add" ng-click= "savePersonal(fullname, company, field); hide=true">Eingabe bestätigen</button>
-						<button class="button-add" ng-click= "changeData(); hide=false">Eingabe ändern</button>
+						<button class="button-add" ng-click= "savePersonal(fullname, company, field)">Eingabe bestätigen</button>
+						<button class="button-add" ng-click= "hide=false">Eingabe ändern</button>
 					
 					</div>
 					
