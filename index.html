@@ -1,0 +1,191 @@
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript" src="logik.js"></script>
+<link rel="stylesheet" href="styles.css">
+<h1> Berichtsheft</h1>
+</head>
+<body ng-controller="MainCtrl">
+    <div class="container-fluid" ng-app="">
+		<div class="row margin-top-xl">
+			<div class="col-xs-12 col-md-7 margin-bottom-xl margin-top-md greyblock">
+				<label for="fullname">Name: </label>
+				<input ng-model="fullname" class="input" name="fullname" id="fullname" type="text" ng-if="!hide"/>
+				<span id="fullname_print" ng-if="hide"></span>
+				<div class="row margin-top-lg">
+					<div class="col-xs-12 col-md-6">
+						<label for="company_name">Firma:</label>
+						<div class="col-xs-12" ng-if="!hide">
+							<textarea ng-model="company" class="angaben" name="company_name" id="company_name" type="text" rows="4"></textarea>
+						</div>
+					</div>
+					<div class="col-xs-12 col-md-5">
+						<label for="field_of_work">Ausbildungsabteilung:</label>
+						<div class="col-xs-12" ng-if="!hide">
+							<textarea ng-model="field" class="angaben" name="field_of_work" id="field_of_work" type="text" rows="4"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 row-centered margin-top-md">
+						<button class="button-add" ng-click= "savePersonal(fullname, company, field); hide=true">Eingabe bestätigen</button>
+						<button class="button-add" ng-click= "changeData(); hide=false">Eingabe ändern</button>
+					
+					</div>
+					
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4 margin-top-md greyblock">
+				<div class="col-xs-12 ">
+					<label for="ab_nw">Ausbildungsnachweis Nr.</label>
+					<input class="input" name="ab_nw" id="ab_nw" type="number"/>
+				</div>
+				<div class="col-xs-12 margin-top-md">
+					<label for="ab_jahr">Ausbildungsjahr: </label>
+					<input class="input" name="ab_jahr" id="ab_jahr" type="number"/>
+				</div>
+				<div class="col-xs-12 margin-top-md">
+					<label for="week">Woche: </label>
+					<input class="input" name="week" id="week" type="number"/>
+				</div>
+				<div class="col-xs-12 margin-top-md">
+					<div class="col-xs-12 col-md-6">
+						<label for="von">Von: </label>
+						<input class="input" name="ab_nw" id="ab_nw" type="date"/>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<label for="bis">bis: </label>
+						<input class="input" name="ab_nw" id="ab_nw" type="date"/>
+					</div>
+				</div>
+				
+				
+			</div>
+			
+		</div>
+		<div class="row margin-top-md greyblock">
+			<div class="col-xs-12">
+				<div class="row margin-top-xl margin-bottom-xxl">
+					<div class="col-xs-12">
+						<table>
+							<tr>
+								<th>Betriebliche Tätigkeit (bitte Ausbildungsverlauf mir der zeitlichen und sachlichen Gliederung abgleichen):</th>
+								<th><strong>Stunden</strong></th>
+							</tr>
+							<tr>
+								<td>
+									<textarea class="conten-area" rows=10"></textarea>
+								</td>
+								<td>
+									<textarea class="conten-area" rows=10"></textarea>
+								</td>
+							</tr>
+						</table>
+						
+					</div>
+				</div>
+				<div class="row margin-top-xl">
+					<div class="col-xs-12">
+						<table>
+							<tr>
+								<th>Beschreibung eines Arbeitsvorganges dieser Woche:</th>
+								<th><strong>Stunden</strong></th>
+							</tr>
+							<? ng-repeat="tgk in fruitList track by $index" ?>
+							<tr>
+								<td>
+									<textarea class="conten-area" rows=10"></textarea>
+								</td>
+								<td>
+									<textarea class="conten-area" rows=10"></textarea>
+								</td>
+							</tr>
+						</table>
+						
+					</div>
+				</div>
+				<div class="row margin-top-xl">
+					<div class="col-xs-12">
+						<table>
+							<tr>
+								<th>Berufsschule (Themen des Unterrichts):</th>
+								<th><strong>Stunden</strong></th>
+							</tr>
+							<td>
+									<textarea class="conten-area" rows=10"></textarea>
+								</td>
+								<td>
+									<textarea class="conten-area" rows=10"></textarea>
+								</td>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+    <!--<div id="alles">
+        <button class="button" ng-click="hide=false">Hide</button>
+        <button class="button" ng-click="hide=true">Show</button>
+        
+        <div id="liste" ng-if="hide" >
+            <table class="t">
+                <tr class= "t">
+                    <td class="t" ng-repeat="obst in fruitList track by $index">{{obst}}</td>
+                </tr>
+            </table>
+            
+            <div id = "user">
+            <input ng-model="fruitadd" type="text" required></input>
+            <button class="button" ng-click="addFruit(fruitadd)">Obst hinzufügen</button>
+            
+            <input ng-model="fruitdel" type="text" required></input>
+            <button class="button" ng-click="delFruit(fruitdel)">Obst entfernen</button>
+            <span class="fehler" ng-show="fruitExists">Obst ist bereits vorhanden</span>
+			<span class="fehler" ng-show="fruitnonExistent">Obst ist nicht in der Liste vorhanden</span>
+            </div>
+            
+        </div>
+        
+       <div id="count" >
+        <span>Von </span>
+        <input ng-model="date_von" id="von" type="date"></input>
+        <span> Bis </span>
+        <input ng-model="date_bis" id="bis" type="date"></input>
+        <button class="button" ng-click= updateDate()>Datum hinzufügen</button>
+        <button class="button" ng-click="generateArray();  showtable=true;">Tabelle generieren</button>
+       </div>
+    
+    <div id="data" ng-show="showtable">
+        <table class="tab">
+            <tr>
+                <td></td>
+                <td ng-repeat="date in dateList track by $index">{{date}}</td>
+            </tr>
+            <tr ng-repeat="obst in fruitList track by $index">
+              
+                <td class="input" ng-repeat="data in dataList track by $index"><input contenteditable="true" style="width: 73px;" class="datainput" id="{{$parent.$index}}{{$index}}" value="{{ dataList[$parent.$index][$index]}}" ></input>
+                   
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+    <button class="button" id="save" ng-click="saveList()" ng-show="showtable"> Liste speichern</button>
+	<button class="button" id="updatelist" ng-click="updateList()" ng-show="showtable">Liste updaten</button>
+    <button class="button" id="show" ng-click="showArray()" ng-show="showtable"> Array anzeigen</button>
+        
+    </div>-->
+</body>    
+</html>
