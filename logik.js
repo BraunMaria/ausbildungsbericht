@@ -20,6 +20,15 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.firma = company;
         $scope.abteilung = abteilung;
         $scope.myValue = true;
+    };
+    
+    $scope.saveFileData = function(ab_nw, ab_jahr, week, ab, bis){
+        $scope.nachweisnr  = ab_nw;
+        $scope.jahr = ab_jahr;
+        $scope.woche = week;
+        $scope.from = ab;
+        $scope.till = bis;
+        $scope.data = true;
     }
     
     $scope.changePersonal = function(){

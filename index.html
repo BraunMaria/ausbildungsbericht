@@ -16,7 +16,6 @@
 </head>
 <body ng-controller="MainCtrl">
     <div class="container-fluid" ng-app="">
-		<a href="#" ng-click="addProduct()">Add Product</a>
 		<div class="row margin-top-xl">
 			<div class="col-xs-12 col-md-7 margin-bottom-xl margin-top-md greyblock">
 				<label for="fullname">Name: </label>
@@ -42,34 +41,44 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 row-centered margin-top-md">
-						<button href="#" class="button-add" ng-click= "savePersonal(fullname, company, field)">Eingabe bestätigen</button>
-						<button class="button-add" ng-click= "hide=false">Eingabe ändern</button>
-					
+						<button ng-hide="myValue" href="#" class="button-add" ng-click= "savePersonal(fullname, company, field)">Eingabe bestätigen</button>
+						<button ng-hide="!myValue" class="button-add" ng-click= "myValue=false">Eingabe ändern</button>
 					</div>
-					
 				</div>
 			</div>
+			
 			<div class="col-xs-12 col-md-4 margin-top-md greyblock">
 				<div class="col-xs-12 ">
 					<label for="ab_nw">Ausbildungsnachweis Nr.</label>
-					<input class="input" name="ab_nw" id="ab_nw" type="number"/>
+					<span>{{nachweisnr}}</span>
+					<input ng-hide="data" ng-model="ab_nw" class="input" name="ab_nw" id="ab_nw" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-md">
 					<label for="ab_jahr">Ausbildungsjahr: </label>
-					<input class="input" name="ab_jahr" id="ab_jahr" type="number"/>
+					<span>{{jahr}}</span>
+					<input ng-hide="data" ng-model="ab_jahr" class="input" name="ab_jahr" id="ab_jahr" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-md">
 					<label for="week">Woche: </label>
-					<input class="input" name="week" id="week" type="number"/>
+					<span>{{woche}}</span>
+					<input ng-hide="data" ng-model="week" class="input" name="week" id="week" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-md">
 					<div class="col-xs-12 col-md-6">
 						<label for="von">Von: </label>
-						<input class="input" name="ab_nw" id="ab_nw" type="date"/>
+						<span>{{from}}</span>
+						<input ng-hide="data" ng-model="ab" class="input" name="ab" id="ab" type="date"/>
 					</div>
 					<div class="col-xs-12 col-md-6">
 						<label for="bis">bis: </label>
-						<input class="input" name="ab_nw" id="ab_nw" type="date"/>
+						<span>{{till}}</span>
+						<input ng-hide="data" ng-model="bis" class="input" name="bis" id="bis" type="date"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 row-centered margin-top-md">
+						<button ng-hide="data" href="#" class="button-add" ng-click= "saveFileData(ab_nw, ab_jahr, week, ab, bis)">Eingabe bestätigen</button>
+						<button ng-hide="!data" class="button-add" ng-click= "data=false">Eingabe ändern</button>
 					</div>
 				</div>
 				
