@@ -9,11 +9,17 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.company = ""
     $scope.field = ""
     
+    $scope.count = 0;
+
+  $scope.addProduct = function() {
+    $scope.count++;
+  };
     
     $scope.savePersonal = function(name, company, abteilung){
         $scope.name = name;
-        $scope.company = company;
-        $scope.field = abteilung;
+        $scope.firma = company;
+        $scope.abteilung = abteilung;
+        $scope.myValue = true;
     }
     
     $scope.changePersonal = function(){
