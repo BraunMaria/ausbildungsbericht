@@ -92,12 +92,14 @@
 					<div class="col-xs-12">
 						<table>
 							<tr>
-								<th>Betriebliche Tätigkeit (bitte Ausbildungsverlauf mir der zeitlichen und sachlichen Gliederung abgleichen):</th>
+								<th>Betriebliche Tätigkeit (bitte Ausbildungsverlauf mit der zeitlichen und sachlichen Gliederung abgleichen):</th>
 								<th><strong>Stunden</strong></th>
 							</tr>
 							<tr>
 								<td>
-									<textarea class="conten-area" rows=10"></textarea>
+									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text"" ng-hide="content" rows=10"></textarea>
+									<span class="t" ng-repeat="taetigkeit in btkcontent track by $index">{{bbt}}</span>
+									<span id="btt_print"></span>
 								</td>
 								<td>
 									<textarea class="conten-area" rows=10"></textarea>
@@ -114,7 +116,6 @@
 								<th>Beschreibung eines Arbeitsvorganges dieser Woche:</th>
 								<th><strong>Stunden</strong></th>
 							</tr>
-							<? ng-repeat="tgk in fruitList track by $index" ?>
 							<tr>
 								<td>
 									<textarea class="conten-area" rows=10"></textarea>
@@ -147,10 +148,12 @@
 			<div class="row margin-top-md">
 				<div class="col-xs-12">
 					<div class="row signature-box margin-top-xl">
-						<div class="col-xs-1 signatures">
+						<div class="col-xs-2">
+							<div class="richtigkeit">
 							<span>Für die Richtigkeit</span>
+							</div>
 						</div>
-						<div class="col-xs-6 signatures">
+						<div class="col-xs-5 signatures">
 							<div class="col-xs-6">
 								<hr>
 								<span>Datum</span>
@@ -171,6 +174,12 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="row margin-top-md">
+				<div class="col-xs-12">
+					<button class="button-add" ng-click= "saveFileData(bbt, ab_jahr, week, ab, bis)" ng-hide="content" href="#">Speichern</button>
+					<button class="button-add">Drucken</button>
 				</div>
 			</div>
 		</div>

@@ -26,13 +26,14 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.nachweisnr  = ab_nw;
         $scope.jahr = ab_jahr;
         $scope.woche = week;
-        $scope.from = ab;
-        $scope.till = bis;
+        $scope.from = ab.yyyymmdd();
+        $scope.till = bis.yyyymmdd();
         $scope.data = true;
     }
     
-    $scope.changePersonal = function(){
-        
+    $scope.saveContent = function(bbt, bbt_h, bav, bav_h, bs, bs_h){
+        $scope.btkcontent = bbt.split('\n');
+        $scope.content = true;
     }
     
     $scope.generateArray = function(){

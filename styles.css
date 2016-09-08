@@ -102,6 +102,17 @@
 .signatures{
     padding-top: 80px;
     border-right: 1px solid #000000;
+     border-left: 1px solid #000000;
+}
+
+.signatures:last-child {
+        border-left: none;
+        border-right: none;
+    }
+
+.richtigkeit{
+    padding: 5px;
+    text-align: center;
 }
 
 hr{
@@ -132,6 +143,7 @@ table, th{
 textarea{
     font-size: 18px;
     resize: vertical;
+    width: 100%;
 }
 
 label{
