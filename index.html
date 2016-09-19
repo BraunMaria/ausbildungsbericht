@@ -16,9 +16,9 @@
 <h1> Berichtsheft</h1>
 </head>
 <body ng-controller="MainCtrl">
-    <div class="container-fluid" ng-app="">
+    <div class="container-fluid margin-top-xl greyblock" ng-app="">
 		<div class="row margin-top-xl">
-			<div class="left-data-block col-xs-12 col-md-7 margin-bottom-xl margin-top-md greyblock">
+			<div class="left-data-block col-xs-12 col-md-7  margin-top-md">
 				<label for="fullname">Name: </label>
 				<input ng-model="fullname" class="input" name="fullname" id="fullname" type="text"" ng-hide="myValue"/>
 				<span>{{name}}</span>
@@ -41,14 +41,14 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 buttons row-centered margin-top-md">
+					<div class="col-xs-12 buttons row-centered margin-top-md margin-bottom-md">
 						<button ng-hide="myValue" href="#" class="button-add" ng-click= "savePersonal(fullname, company, field)">Eingabe bestätigen</button>
 						<button ng-hide="!myValue" class="button-add" ng-click= "myValue=false">Eingabe ändern</button>
 					</div>
 				</div>
 			</div>
 			
-			<div class="right-data-block col-xs-12 col-md-4 margin-top-md greyblock">
+			<div class="right-data-block col-xs-12 col-md-4 margin-top-md">
 				<div class="col-xs-12 ">
 					<label for="ab_nw">Ausbildungsnachweis Nr.</label>
 					<span>{{nachweisnr}}</span>
@@ -82,14 +82,11 @@
 						<button ng-hide="!data" class="button-add" ng-click= "data=false">Eingabe ändern</button>
 					</div>
 				</div>
-				
-				
 			</div>
-			
 		</div>
-		<div class="row margin-top-md">
-			<div class="col-xs-12 greyblock">
-				<div class="row margin-top-xl margin-bottom-xxl">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="row">
 					<div class="col-xs-12">
 						<table>
 							<tr>
@@ -110,12 +107,12 @@
 						
 					</div>
 				</div>
-				<div class="row margin-top-xl">
+				<div class="row">
 					<div class="col-xs-12">
 						<table>
 							<tr>
 								<th>Beschreibung eines Arbeitsvorganges dieser Woche:</th>
-								<th><strong>Stunden</strong></th>
+								<th><strong></strong></th>
 							</tr>
 							<tr>
 								<td>
@@ -129,13 +126,13 @@
 						
 					</div>
 				</div>
-				<div class="row margin-top-xl">
+				<div class="row">
 					<div class="col-xs-12">
 						<table>
 							<tr>
 								<th>Berufsschule (Themen des Unterrichts):</th>
-								<th><strong>Stunden</strong></th>
-							</tr>
+								<th><strong></strong></th>
+							</tr> 
 							<td>
 									<textarea class="conten-area" rows=10"></textarea>
 								</td>
@@ -147,7 +144,7 @@
 				</div>
 			</div>
 			<div class="row margin-top-md hidden">
-				<div class="col-xs-12 greyblock">
+				<div class="col-xs-12">
 					<div class="row signature-box margin-top-xl">
 						<div class="col-xs-2">
 							<div class="richtigkeit">
@@ -177,8 +174,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="row margin-top-xl row-centered">
-				<div class="col-xs-12 buttons">
+			<div class="row row-centered">
+				<div class="col-xs-12 margin-top-md buttons">
 					<button class="button-add" ng-click= "saveFileData(bbt, ab_jahr, week, ab, bis)" ng-hide="content" href="#">Speichern</button>
 					<button class="button-add">Drucken</button>
 				</div>

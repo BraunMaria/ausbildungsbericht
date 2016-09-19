@@ -79,7 +79,6 @@
 .greyblock{
     background-color: #ECECEC;
     padding-top:18px;
-    margin-right: 18px;
     padding-bottom: 18px;
     margin-left:18px;
 }
@@ -124,10 +123,7 @@
 hr{
     border: 1px solid #000000;
 }
-th{
-    font-size:18px;
-    background-color: #F5F5F5;
-}
+
 
 h1{
     padding: 15px;
@@ -146,10 +142,27 @@ table, th{
     width: 100%;
 }
 
+th{
+    text-align: left;
+    font-size:14px;
+    background-color: #FFFFFF;
+    border-bottom: none;
+}
+
+th:nth-child(odd){
+    width: 95%;
+}
+
+th:nth-child(even){
+    width: 5%;    
+}
+
+
 textarea{
     font-size: 18px;
     resize: vertical;
     width: 100%;
+    border: none;
 }
 
 label{
