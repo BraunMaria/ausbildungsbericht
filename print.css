@@ -1,0 +1,85 @@
+body{
+    width: 21cm;
+}
+
+h1{
+    padding: 0px;
+    background-color: #FCDF8A;
+    text-align: center;
+    margin: 0px;
+}
+
+.left-data-block{
+    width: 60%;
+    float: left;
+}
+
+.right-data-block{
+    width: 30%;
+    float:right;
+}
+
+label{
+    font-size: 14px;
+}
+
+.buttons{
+    display: none;
+}
+
+.greyblock{
+    border: 0px solid;
+    padding: 0px;
+}
+
+.abteilung{
+    width: 45%;
+}
+
+.firma{
+    width: 45%;
+}
+
+.margin-top-md{
+    margin-top: 0px;
+}
+
+.margin-top-sm{
+    margin-top: 10px;
+}
+
+.margin-top-lg{
+    margin-top: 0px;
+}
+
+.margin-top-xs{
+    margin-top: 0px;
+}
+
+.margin-top-xl{
+    margin-top: 0px;
+}
+
+.margin-bottom-md{
+    margin-bottom: 0px;
+}
+
+.margin-bottom-sm{
+    margin-bottom: 0px:
+}
+
+.margin-bottom-lg{
+    margin-bottom: 0px;
+}
+
+.margin-bottom-xs{
+    margin-bottom: 0px;
+}
+
+.margin-bottom-xl{
+    margin-bottom: 0px;
+}
+
+.margin-bottom-xxl{
+    margin-bottom: 0px;
+}
