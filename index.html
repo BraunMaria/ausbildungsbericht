@@ -34,14 +34,23 @@
 					<div class="abteilung col-xs-12 col-md-6">
 						<label for="field_of_work">Ausbildungsabteilung:</label>
 						<div class="col-xs-12">
-							<span>{{abteilung}}</span>
-							<textarea ng-hide="myValue" ng-model="field" class="angaben" name="field_of_work" id="field_of_work" type="text" rows="4"></textarea>
+							<span ng-hide="!myValue">{{abteilung}}</span>
+							<select ng-hide="myValue" ng-model="selectedAbteilung">
+								<option ng-repeat="abteilung in abteilungen track by $index" ng-name="{{abteilung}}">{{abteilung}}</option>
+							</select>
+							<div class="margin-top-xs">
+							<input ng-hide="myValue" ng-model="modabteilung"></input>
+							</div>
+							<div class="margin-top-xs">
+							<button class="button-add" ng-hide="myValue" ng-click="addAbteilung(modabteilung)">Abteilung hinzufügen</button>
+							<button class="button-remove" ng-hide="myValue" ng-click="delAbteilung(modabteilung)">Abteilung entfernen</button>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 buttons row-centered margin-top-md margin-bottom-md">
-						<button ng-hide="myValue" href="#" class="button-add" ng-click= "savePersonal(fullname, company, field)">Eingabe bestätigen</button>
+						<button ng-hide="myValue" href="#" class="button-add" ng-click= "savePersonal(fullname, company)">Eingabe bestätigen</button>
 						<button ng-hide="!myValue" class="button-add" ng-click= "myValue=false">Eingabe ändern</button>
 					</div>
 				</div>

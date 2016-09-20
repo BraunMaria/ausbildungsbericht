@@ -1,27 +1,52 @@
 var myApp = angular.module('myApp', []);
 
 myApp.controller('MainCtrl', ['$scope',function($scope) {
-   
-    $scope.btkcontent = []
-    $scope.tgk = []
-    $scope.bs = []
-    $scope.name = ""
-    $scope.company = ""
-    $scope.field = ""
+   $scope.abteilungen = [ "E-Commerce", "Einkauf", "Service", "Buchhaltung", "Personalwesen",
+				"Marketing", "Logistik", "Export", "EDV-Host", "IT-Netzwerke", "Grafik" ]
+    $scope.btkcontent = [];
+    $scope.tgk = [];
+    $scope.bs = [];
+    $scope.name = "";
+    $scope.company = "";
+    $scope.field = "";
     
     $scope.count = 0;
 
   $scope.addProduct = function() {
     $scope.count++;
   };
-    
-    $scope.savePersonal = function(name, company, abteilung){
-        $scope.name = name;
-        $scope.firma = company;
-        $scope.abteilung = abteilung;
-        $scope.myValue = true;
+  
+    $scope.delAbteilung = function(abteilung) {
+        $scope.abteilungnonexistent = true;
+        
+        for ( var i = 0; i < $scope.abteilungen.length; i++) {
+            if ($scope.abteilungen[i] == abteilung) {
+                $scope.abteilungen.splice(i, 1);
+                $scope.abteilungnonexistent = false;
+            }
+        }
+        console.log($scope.abteilungen);
     };
     
+    $scope.addAbteilung = function(abteilung) {
+        for ( var i = 0; i < $scope.abteilungen.length; i++) {
+            if ($scope.abteilungen[i] == abteilung) {
+                $scope.abteilungexists = true;
+                return;
+            }
+        }
+        $scope.abteilungexists = false;
+        $scope.abteilungen.push(abteilung);
+        console.log($scope.abteilungen);
+	}
+        
+    $scope.savePersonal = function(name, company){
+        $scope.name = name;
+        $scope.firma = company;
+        $scope.abteilung = $scope.selectedAbteilung;
+        $scope.myValue = true;
+    };
+        
     $scope.saveFileData = function(ab_nw, ab_jahr, week, ab, bis){
         $scope.nachweisnr  = ab_nw;
         $scope.jahr = ab_jahr;
