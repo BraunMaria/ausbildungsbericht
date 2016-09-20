@@ -17,22 +17,21 @@
 </head>
 <body ng-controller="MainCtrl">
     <div class="container-fluid margin-top-xl greyblock" ng-app="">
-		<div class="row margin-top-xl">
-			<div class="left-data-block col-xs-12 col-md-7  margin-top-md">
-				<label for="fullname">Name: </label>
-				<input ng-model="fullname" class="input" name="fullname" id="fullname" type="text"" ng-hide="myValue"/>
-				<span>{{name}}</span>
-				<span id="fullname_print"></span>
-				<div class="row margin-top-lg">
+		<div class="row">
+			<div class="left-data-block col-xs-12 col-md-7">
+				<div class="name">
+					<label for="fullname">Name: </label>
+					<input ng-model="fullname" class="input" name="fullname" id="fullname" type="text"" ng-hide="myValue"/>
+					<span>{{name}}</span>
+				</div>
+				<div class="row margin-top-lg where">
 					<div class="firma col-xs-12 col-md-6">
 						<label for="company_name">Firma:</label>
-						
 						<div class="col-xs-12">
-							<span>{{firma}}</span>
-							<textarea ng-hide="myValue" ng-model="company" class="angaben" name="company_name" id="company_name" type="text" rows="4">{{company}}</textarea>
+							<img class="logo" src="buttinette.jpg"/>
 						</div>
 					</div>
-					<div class="abteilung col-xs-12 col-md-5">
+					<div class="abteilung col-xs-12 col-md-6">
 						<label for="field_of_work">Ausbildungsabteilung:</label>
 						<div class="col-xs-12">
 							<span>{{abteilung}}</span>
@@ -48,30 +47,30 @@
 				</div>
 			</div>
 			
-			<div class="right-data-block col-xs-12 col-md-4 margin-top-md">
-				<div class="col-xs-12 ">
+			<div class="right-data-block col-xs-12 col-md-4 margin-top-md no-padding">
+				<div class="col-xs-12 no-padding azubi-nachw">
 					<label for="ab_nw">Ausbildungsnachweis Nr.</label>
 					<span>{{nachweisnr}}</span>
 					<input ng-hide="data" ng-model="ab_nw" class="input" name="ab_nw" id="ab_nw" type="number"/>
 				</div>
-				<div class="col-xs-12 margin-top-md">
+				<div class="col-xs-12 margin-top-md no-padding azubi_jahr">
 					<label for="ab_jahr">Ausbildungsjahr: </label>
 					<span>{{jahr}}</span>
 					<input ng-hide="data" ng-model="ab_jahr" class="input" name="ab_jahr" id="ab_jahr" type="number"/>
 				</div>
-				<div class="col-xs-12 margin-top-md">
+				<div class="col-xs-12 margin-top-md no-padding week">
 					<label for="week">Woche: </label>
 					<span>{{woche}}</span>
 					<input ng-hide="data" ng-model="week" class="input" name="week" id="week" type="number"/>
 				</div>
-				<div class="col-xs-12 margin-top-md no-padding">
-					<div class="col-xs-12 col-md-6">
-						<label for="von">Von: </label>
+				<div class="col-xs-12 margin-top-md no-padding date">
+					<div class="col-xs-12 col-md-6 date-from no-padding">
+						<label >Von: </label>
 						<span>{{from}}</span>
 						<input ng-hide="data" ng-model="ab" class="input" name="ab" id="ab" type="date"/>
 					</div>
-					<div class="col-xs-12 col-md-6">
-						<label for="bis">bis: </label>
+					<div class="col-xs-12 col-md-6 date-till no-padding">
+						<label>bis: </label>
 						<span>{{till}}</span>
 						<input ng-hide="data" ng-model="bis" class="input" name="bis" id="bis" type="date"/>
 					</div>
@@ -95,12 +94,12 @@
 							</tr>
 							<tr>
 								<td>
-									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text"" ng-hide="content" rows=10"></textarea>
+									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text"" ng-hide="content" rows=18"></textarea>
 									<span class="t" ng-repeat="taetigkeit in btkcontent track by $index">{{bbt}}</span>
 									<span id="btt_print"></span>
 								</td>
 								<td>
-									<textarea class="conten-area" rows=10"></textarea>
+									<textarea class="conten-area" rows=18"></textarea>
 								</td>
 							</tr>
 						</table>
@@ -112,14 +111,14 @@
 						<table>
 							<tr>
 								<th>Beschreibung eines Arbeitsvorganges dieser Woche:</th>
-								<th><strong></strong></th>
+								<th class="hour"><strong>Stunden</strong></th>
 							</tr>
 							<tr>
 								<td>
-									<textarea class="conten-area" rows=10"></textarea>
+									<textarea class="conten-area" rows=18"></textarea>
 								</td>
 								<td>
-									<textarea class="conten-area" rows=10"></textarea>
+									<textarea class="conten-area" rows=18"></textarea>
 								</td>
 							</tr>
 						</table>
@@ -131,21 +130,26 @@
 						<table>
 							<tr>
 								<th>Berufsschule (Themen des Unterrichts):</th>
-								<th><strong></strong></th>
+								<th class="hour"><strong></strong></th>
 							</tr> 
-							<td>
+							<tr>
+								<td>
 									<textarea class="conten-area" rows=10"></textarea>
 								</td>
 								<td>
 									<textarea class="conten-area" rows=10"></textarea>
 								</td>
+							</tr>
+							<tr>
+								<td class="text-right">Gesamtstunden:</td>
+								<td><textarea class="conten-area" rows=1"></textarea></td>
+							</tr>
 						</table>
 					</div>
 				</div>
-			</div>
-			<div class="row margin-top-md hidden">
+			
 				<div class="col-xs-12">
-					<div class="row signature-box margin-top-xl">
+					<div class="row signature-box">
 						<div class="col-xs-2">
 							<div class="richtigkeit">
 							<span>Für die Richtigkeit</span>
@@ -173,7 +177,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				</div>
 			<div class="row row-centered">
 				<div class="col-xs-12 margin-top-md buttons">
 					<button class="button-add" ng-click= "saveFileData(bbt, ab_jahr, week, ab, bis)" ng-hide="content" href="#">Speichern</button>

@@ -27,7 +27,7 @@
 }
 
 .margin-bottom-sm{
-    margin-bottom: 10px:
+    margin-bottom: 10px;
 }
 
 .margin-bottom-lg{
@@ -50,10 +50,12 @@
     padding-left: 0px;
 }
 
-.hidden{
-    display: none;
+.logo{
+    margin-top: 15px;
+    margin-left: 10px;
+    height: auto;
+    width: 450px;
 }
-
 .angaben{
     width: 100%;
 }
@@ -88,6 +90,11 @@
     width:100%;
 }
 
+.text-right{
+    background-color: white;
+    text-align: right
+}
+
 .button-add{
     background-color: #4CAF50;
 }
@@ -99,9 +106,7 @@
 .signature-box{
     border: 1px solid #000000;
     padding-top:18px;
-    margin-right: 5px;
-    padding-bottom: 18px;
-    margin-left:18px;
+   
 }
 
 .signatures{
@@ -133,6 +138,7 @@ h1{
 }
 table, th{
     border: 1px solid #000000;
+    border-bottom: 0px;
 	border-collapse: collapse;
 	color: #000000;
 	padding: 5px;
@@ -153,14 +159,13 @@ th:nth-child(odd){
     width: 95%;
 }
 
-th:nth-child(even){
-    width: 5%;    
+th:nth-child(even){  
 }
 
 
 textarea{
     font-size: 18px;
-    resize: vertical;
+    resize: none;
     width: 100%;
     border: none;
 }
@@ -192,4 +197,114 @@ button{
     border-radius: 15p
     box-shadow: 0 9px #999;x;
     
+}
+
+@media print{
+    .margin-top-xl{
+        margin-top: 0px;
+    }
+    
+    .margin-top-md{
+        margin-top: 0px;
+    }
+    
+    .name{
+        margin-top: 5px;
+        padding-left: 5px;
+    }
+    h1{
+        display: none;
+    }
+    
+    body{
+        margin: 10px;
+        border: 1px solid black;
+    }
+    
+    .firma{
+        border-right: 1px solid black;
+        padding-bottom: 40px;
+    }
+    
+    .where{
+        margin-right: 0px;
+        margin-left: 0px;
+        border-top: 1px solid black;
+    }
+    
+    .greyblock{
+        margin-left: 0px;
+    }
+    
+    .container-fluid{
+        padding: 0px;
+    }
+    
+    .hidden{
+        display: block;
+    }
+    
+    .signatures{
+        padding-top: 15px;
+    }
+    
+    .signature-box{
+        padding-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+    }
+    
+    .left-data-block{
+        border-right: 1px solid black;
+        padding: 15px;
+    }
+    .right-data-block{
+        padding-left: 5px;
+    }
+    
+    .date-from{
+        width: 50%;
+        float: left;
+    }
+    
+    .date-till{
+        width: 50%;
+        float:right;
+    }
+    
+    .week{
+        margin-top: 15px;
+    }
+    
+    .date{
+        margin-top: 15px;
+        
+    }
+    
+    hr{
+        margin-bottom: 5px;
+    }
+    textarea{
+        font-size: 14px;
+    }
+    
+    th{
+        font-size: 12px;
+    }
+    table{
+        border-right: 0px;
+        border-left: 0px;
+    }
+    
+    td:nth-child(even){
+    border-right: 0px;;
+    }
+    
+    th:nth-child(odd){
+        border-left: none;
+    }
+
+    th:nth-child(even){
+        border-right: none;    
+    }
 }
