@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="styles.css">
 <h1> Berichtsheft</h1>
 </head>
-<body ng-controller="MainCtrl">
+<body ng-controller="MainCtrl" data-ng-init="init()">
     <div class="container-fluid margin-top-xl greyblock" ng-app="">
 		<div class="row">
 			<div class="left-data-block col-xs-12 col-md-7">
@@ -69,8 +69,8 @@
 				</div>
 				<div class="col-xs-12 margin-top-xxl no-padding week">
 					<label for="week">Woche: </label>
-					<span>{{woche}}</span>
-					<input ng-hide="data" ng-model="week" class="input" name="week" id="week"/>
+					<span>{{weeknumber}}</span>
+					<input ng-hide="data" ng-model="week" class="input" name="week" id="week"  placeholder="{{weeknumber}}" value="{{weeknumber}}"/>
 				</div>
 				<div class="col-xs-12 margin-top-xxl no-padding date">
 					<div class="col-xs-12 col-md-6 date-from no-padding">

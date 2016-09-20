@@ -9,25 +9,50 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.name = "";
     $scope.company = "";
     $scope.field = "";
-    
+    $scope.weeknumber;
+    $scope.today = new Date();
     $scope.count = 0;
-
-  $scope.addProduct = function() {
-    $scope.count++;
-  };
+    
+    $scope.init = function(){
+        $scope.getweekNumber($scope.today);
+        $scope.getWeekDates($scope.today);
+        console.log($scope.today.getDay());
+    };
   
+    //Funktion um Abteilungen im Dropdown hinzuzufügen
     $scope.delAbteilung = function(abteilung) {
         $scope.abteilungnonexistent = true;
         
         for ( var i = 0; i < $scope.abteilungen.length; i++) {
             if ($scope.abteilungen[i] == abteilung) {
                 $scope.abteilungen.splice(i, 1);
+                $scope.modabteilung = "";
+                $scope.selectedAbteilung = $scope.abteilungen[i-1];
                 $scope.abteilungnonexistent = false;
             }
         }
-        console.log($scope.abteilungen);
     };
     
+    //Funktion zur Berechnung der Kalendar Woche
+    $scope.getweekNumber = function(d){
+        var kwdate = new Date(d);
+        kwdate.setHours(0,0,0);
+        kwdate.setDate(kwdate.getDate() + 4 - (kwdate.getDay()||7));
+        var yearStart = new Date(kwdate.getFullYear(),0,1);
+        var weekNo = Math.ceil(( ( (kwdate - yearStart) / 86400000) + 1)/7);
+        $scope.week = weekNo + "";
+	}
+    
+    $scope.getWeekDates = function(d){
+        var currdate = new Date(d);
+        var subtract = currdate.getDay() -1;
+        $scope.ab = new Date(currdate -subtract);
+        $scope.bis = new Date($scope.beginnDate + 4);
+        console.log("test");
+        
+    };
+    
+    //Funktion um Abteilungen aus Dropdown zu löschen
     $scope.addAbteilung = function(abteilung) {
         for ( var i = 0; i < $scope.abteilungen.length; i++) {
             if ($scope.abteilungen[i] == abteilung) {
@@ -37,9 +62,11 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         }
         $scope.abteilungexists = false;
         $scope.abteilungen.push(abteilung);
-        console.log($scope.abteilungen);
+        $scope.modabteilung = "";
+        $scope.selectedAbteilung = abteilung;
 	}
         
+    //Funktion um die persönlichen Daten zu speichern
     $scope.savePersonal = function(name, company){
         $scope.name = name;
         $scope.firma = company;
@@ -47,6 +74,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.myValue = true;
     };
         
+    //Funktion um die Nachweisdaten zu speichern    
     $scope.saveFileData = function(ab_nw, ab_jahr, week, ab, bis){
         $scope.nachweisnr  = ab_nw;
         $scope.jahr = ab_jahr;
@@ -181,15 +209,5 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.dataList = new Array($scope.dateList.length);
         $scope.generateArray();
     }
-    
-    $scope.getweekNumber = function(d){
-            var kwdate = new Date(d);
-            kwdate.setHours(0,0,0);
-            kwdate.setDate(kwdate.getDate() + 4 - (kwdate.getDay()||7));
-            var yearStart = new Date(kwdate.getFullYear(),0,1);
-            var weekNo = Math.ceil(( ( (kwdate - yearStart) / 86400000) + 1)/7);
-            
-            return weekNo + "";
-        }
     
 }]);
