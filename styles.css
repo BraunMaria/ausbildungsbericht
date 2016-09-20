@@ -115,16 +115,17 @@
     padding-top:18px;
 }
 
-.signature-box span{
-    font-weight: normal;
-    text-align: center;
-}
+
 
 
 .signatures{
-    padding-top: 80px;
+    padding-top: 60px;
     border-right: 1px solid #000000;
      border-left: 1px solid #000000;
+}
+.signatures span{
+    font-weight: normal;
+    text-align: center;
 }
 
 .signatures:last-child {
@@ -144,6 +145,7 @@ hr{
     height: 0.5px;
     color: black;
     background-color: black;
+    margin-bottom: 5px;
 }
 
 
@@ -153,6 +155,11 @@ h1{
     text-align: center;
     margin: 0px;
 }
+
+span{
+    font-weight: bold;
+}
+
 table, th{
     border: 1px solid #000000;
     border-bottom: 0px;
@@ -163,13 +170,16 @@ table, th{
     margin-right:auto;
     text-align: center;
     width: 100%;
+    font-size:15px;
+    background-color: #FFFFFF;
 }
 
 th{
     text-align: left;
-    font-size:14px;
-    background-color: #FFFFFF;
     border-bottom: none;
+}
+
+th span{
     font-weight: normal;
 }
 
@@ -181,9 +191,8 @@ th:nth-child(even){
     width: 5%;
 }
 
-
 textarea{
-    font-size: 18px;
+    font-size: 15px;
     resize: none;
     width: 100%;
     border: none;
@@ -192,6 +201,7 @@ textarea{
 label{
     font-size: 16px;
 }
+
 td{
     border-right: 1px solid #000000;
 }
@@ -199,7 +209,6 @@ td{
 input {
     border: 1px solid #000000;
     width: auto;
-   
 }
 
 button{
@@ -211,29 +220,81 @@ button{
     text-decoration: none;
     outline: none;
     color: #fff;
-    
     border: none;
     border-radius: 15p
-    box-shadow: 0 9px #999;x;
+    box-shadow: 0 9px #999;
     
 }
 
 @media print{
-    .margin-top-xl{
-        margin-top: 0px;
-    }
-    
-    .name{
-        padding-left: 5px;
-    }
-    
     h1{
         display: none;
     }
     
     body{
+        width: 21cm;
         margin: 12px;
         border: 2px solid black;
+    }
+    
+    table{
+        border-right: 0px;
+        border-left: 0px;
+    }
+    
+    td:nth-child(even){
+    border-right: 0px;;
+    }
+    
+    th:nth-child(odd){
+        border-left: none;
+        width: 80%;
+    }
+
+    th:nth-child(even){
+        border-right: none;
+        text-align: center;
+        width: 9%;
+    }
+    
+    .margin-top-xl{
+        margin-top: 0px;
+    }
+    
+    .buttons{
+        display: none;
+    }
+    
+    .greyblock{
+        padding: 0px;
+        margin-left: 0px;
+    }
+    
+    .container-fluid{
+        padding: 0px;
+    }
+    
+    .left-data-block{
+        width: 65%;
+        float: left;
+        border-right: 1px solid black;
+        padding: 15px;
+    }
+    .right-data-block{
+        width: 35%;
+        float:right;
+        padding-top: 10px;
+        padding-left: 5px;
+    }
+    
+    .name{
+        padding-left: 5px;
+    }
+
+    .where{
+        margin-right: 0px;
+        margin-left: 0px;
+        border-top: 1px solid black;
     }
     
     .firma{
@@ -252,45 +313,6 @@ button{
     .abteilung span{
         padding-top: 20px;
         padding-left: 35px;
-    }
-    
-    .where{
-        margin-right: 0px;
-        margin-left: 0px;
-        border-top: 1px solid black;
-    }
-    
-    .greyblock{
-        margin-left: 0px;
-    }
-    
-    .container-fluid{
-        padding: 0px;
-    }
-    
-    .richtigkeit{
-        padding-top: 10px;
-    }
-    
-    .signatures{
-        padding-top: 20px;
-    }
-    
-    .signature-box{
-        padding-top: 0px;
-        border-right: 0px;
-        border-left: 0px;
-        border-bottom: 0px;
-        padding-bottom: 10px;
-    }
-    
-    .left-data-block{
-        border-right: 1px solid black;
-        padding: 15px;
-    }
-    .right-data-block{
-        padding-top: 10px;
-        padding-left: 5px;
     }
     
     .date-from{
@@ -312,37 +334,19 @@ button{
         
     }
     
-    span{
-        font-weight: bold;
-    }
-    hr{
-        margin-bottom: 5px;
-    }
-    textarea{
-        font-size: 15px;
+    .richtigkeit{
+        padding-top: 10px;
     }
     
-    th{
-        font-size: 15px;
+    .signatures{
+        padding-top: 20px;
     }
     
-    table{
+    .signature-box{
+        padding-top: 0px;
         border-right: 0px;
         border-left: 0px;
-    }
-    
-    td:nth-child(even){
-    border-right: 0px;;
-    }
-    
-    th:nth-child(odd){
-        border-left: none;
-        width: 80%;
-    }
-
-    th:nth-child(even){
-        border-right: none;
-        text-align: center;
-        width: 9%;
+        border-bottom: 0px;
+        padding-bottom: 5px;
     }
 }
