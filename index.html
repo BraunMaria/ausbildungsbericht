@@ -21,10 +21,10 @@
 			<div class="left-data-block col-xs-12 col-md-7">
 				<div class="name">
 					<label for="fullname">Name: </label>
-					<input ng-model="fullname" class="input" name="fullname" id="fullname" type="text"" ng-hide="myValue"/>
+					<input ng-model="fullname" value="test" class="input" name="fullname" id="fullname" type="text"" ng-hide="myValue"/>
 					<span>{{name}}</span>
 				</div>
-				<div class="row margin-top-lg where">
+				<div class="row margin-top-sm where">
 					<div class="firma col-xs-12 col-md-6">
 						<label for="company_name">Firma:</label>
 						<div class="col-xs-12">
@@ -53,17 +53,17 @@
 					<span>{{nachweisnr}}</span>
 					<input ng-hide="data" ng-model="ab_nw" class="input" name="ab_nw" id="ab_nw" type="number"/>
 				</div>
-				<div class="col-xs-12 margin-top-md no-padding azubi_jahr">
+				<div class="col-xs-12 margin-top-sm no-padding azubi_jahr">
 					<label for="ab_jahr">Ausbildungsjahr: </label>
 					<span>{{jahr}}</span>
 					<input ng-hide="data" ng-model="ab_jahr" class="input" name="ab_jahr" id="ab_jahr" type="number"/>
 				</div>
-				<div class="col-xs-12 margin-top-md no-padding week">
+				<div class="col-xs-12 margin-top-xxl no-padding week">
 					<label for="week">Woche: </label>
 					<span>{{woche}}</span>
-					<input ng-hide="data" ng-model="week" class="input" name="week" id="week" type="number"/>
+					<input ng-hide="data" ng-model="week" class="input" name="week" id="week"/>
 				</div>
-				<div class="col-xs-12 margin-top-md no-padding date">
+				<div class="col-xs-12 margin-top-xxl no-padding date">
 					<div class="col-xs-12 col-md-6 date-from no-padding">
 						<label >Von: </label>
 						<span>{{from}}</span>
@@ -89,7 +89,7 @@
 					<div class="col-xs-12">
 						<table>
 							<tr>
-								<th>Betriebliche Tätigkeit (bitte Ausbildungsverlauf mit der zeitlichen und sachlichen Gliederung abgleichen):</th>
+								<th><strong>Betriebliche Tätigkeit</strong> <span>(bitte Ausbildungsverlauf mit der zeitlichen und sachlichen Gliederung abgleichen):</span></th>
 								<th><strong>Stunden</strong></th>
 							</tr>
 							<tr>
@@ -110,8 +110,8 @@
 					<div class="col-xs-12">
 						<table>
 							<tr>
-								<th>Beschreibung eines Arbeitsvorganges dieser Woche:</th>
-								<th class="hour"><strong>Stunden</strong></th>
+								<th><strong>Beschreibung eines Arbeitsvorganges dieser Woche:</strong></th>
+								<th class="hour"><strong></strong></th>
 							</tr>
 							<tr>
 								<td>
@@ -129,7 +129,7 @@
 					<div class="col-xs-12">
 						<table>
 							<tr>
-								<th>Berufsschule (Themen des Unterrichts):</th>
+								<th><strong>Berufsschule</strong> <span>(Themen des Unterrichts):</span></th>
 								<th class="hour"><strong></strong></th>
 							</tr> 
 							<tr>
