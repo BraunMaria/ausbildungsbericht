@@ -16,7 +16,10 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.init = function(){
         $scope.getweekNumber($scope.today);
         $scope.getWeekDates($scope.today);
-        console.log($scope.today.getDay());
+        if ($scope.abteilungen.length >= 1) {
+            $scope.selectedAbteilung = $scope.abteilungen[0];
+        }
+        
     };
   
     //Funktion um Abteilungen im Dropdown hinzuzufügen
@@ -40,20 +43,38 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         kwdate.setDate(kwdate.getDate() + 4 - (kwdate.getDay()||7));
         var yearStart = new Date(kwdate.getFullYear(),0,1);
         var weekNo = Math.ceil(( ( (kwdate - yearStart) / 86400000) + 1)/7);
-        $scope.week = weekNo + "";
+        $scope.week = weekNo;
 	}
     
     $scope.getWeekDates = function(d){
-        var currdate = new Date(d);
-        var subtract = currdate.getDay() -1;
-        $scope.ab = new Date(currdate -subtract);
-        $scope.bis = new Date($scope.beginnDate + 4);
-        console.log("test");
+        $scope.currdate = new Date(d);
+        var subtract = $scope.currdate.getDay() -1;
+        var add = 4;
         
+        $scope.abnew = $scope.currdate.setDate($scope.currdate.getDate() - subtract);
+        $scope.abpage = new Date ($scope.abnew)
+        $scope.ab = new Date( $scope.abnew);
+        $scope.bisnew = $scope.abpage.setDate($scope.abpage.getDate() + add);
+        $scope.bis = new Date($scope.bisnew);
+        
+        
+    };
+    
+    $scope.drucken = function(){
+      $scope.myValue = true;
+      $scope.data = true;
+      $scope.abteilung = $scope.selectedAbteilung;
+      $scope.from = $scope.ab.yyyymmdd();
+      $scope.till = $scope.bis.yyyymmdd();
+      $scope.name = $scope.fullname;
+      $scope.nachweisnr  = $scope.ab_nw;
+      $scope.jahr = $scope.ab_jahr;
+      
     };
     
     //Funktion um Abteilungen aus Dropdown zu löschen
     $scope.addAbteilung = function(abteilung) {
+      if (abteilung) {
         for ( var i = 0; i < $scope.abteilungen.length; i++) {
             if ($scope.abteilungen[i] == abteilung) {
                 $scope.abteilungexists = true;
@@ -64,6 +85,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.abteilungen.push(abteilung);
         $scope.modabteilung = "";
         $scope.selectedAbteilung = abteilung;
+      }
 	}
         
     //Funktion um die persönlichen Daten zu speichern

@@ -55,7 +55,7 @@
 }
 
 .logo{
-    margin-top: 15px;
+    margin-top: 5px;
     margin-left: 10px;
     height: auto;
     width: 500px;
@@ -188,6 +188,7 @@ th:nth-child(odd){
 }
 
 th:nth-child(even){
+    text-align: center;
     width: 5%;
 }
 
@@ -234,6 +235,7 @@ button{
     body{
         width: 21cm;
         margin: 12px;
+        margin-bottom: 0px;
         border: 2px solid black;
     }
     
@@ -261,7 +263,15 @@ button{
         margin-top: 0px;
     }
     
-    .buttons{
+    button{
+        display: none;
+    }
+    
+    inpupt{
+        display: none;
+    }
+    
+    .hidden-print{
         display: none;
     }
     

@@ -14,6 +14,7 @@
 <script language="javascript" type="text/javascript" src="logik.js"></script>
 <link rel="stylesheet" href="styles.css">
 <h1> Berichtsheft</h1>
+<?php phpinfo() ?>
 </head>
 <body ng-controller="MainCtrl" data-ng-init="init()">
     <div class="container-fluid margin-top-xl greyblock" ng-app="">
@@ -21,8 +22,8 @@
 			<div class="left-data-block col-xs-12 col-md-7">
 				<div class="name">
 					<label for="fullname">Name: </label>
-					<input ng-model="fullname" value="test" class="input" name="fullname" id="fullname" type="text"" ng-hide="myValue"/>
-					<span>{{name}}</span>
+					<input ng-model="fullname" value="test" class="input" name="fullname" id="fullname" type="text" ng-hide="myValue"/>
+					<span ng-hide="!myValue">{{name}}</span>
 				</div>
 				<div class="row margin-top-sm where">
 					<div class="firma col-xs-12 col-md-6">
@@ -48,7 +49,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row hidden-print">
 					<div class="col-xs-12 buttons row-centered margin-top-md margin-bottom-md">
 						<button ng-hide="myValue" href="#" class="button-add" ng-click= "savePersonal(fullname, company)">Eingabe bestätigen</button>
 						<button ng-hide="!myValue" class="button-add" ng-click= "myValue=false">Eingabe ändern</button>
@@ -59,32 +60,32 @@
 			<div class="right-data-block col-xs-12 col-md-4 margin-top-md no-padding">
 				<div class="col-xs-12 no-padding azubi-nachw">
 					<label for="ab_nw">Ausbildungsnachweis Nr.</label>
-					<span>{{nachweisnr}}</span>
+					<span ng-hide="!data">{{nachweisnr}}</span>
 					<input ng-hide="data" ng-model="ab_nw" class="input" name="ab_nw" id="ab_nw" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-sm no-padding azubi_jahr">
 					<label for="ab_jahr">Ausbildungsjahr: </label>
-					<span>{{jahr}}</span>
+					<span ng-hide="!data">{{jahr}}</span>
 					<input ng-hide="data" ng-model="ab_jahr" class="input" name="ab_jahr" id="ab_jahr" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-xxl no-padding week">
 					<label for="week">Woche: </label>
-					<span>{{weeknumber}}</span>
+					<span ng-hide="!data">{{week}}</span>
 					<input ng-hide="data" ng-model="week" class="input" name="week" id="week"  placeholder="{{weeknumber}}" value="{{weeknumber}}"/>
 				</div>
 				<div class="col-xs-12 margin-top-xxl no-padding date">
 					<div class="col-xs-12 col-md-6 date-from no-padding">
 						<label >Von: </label>
-						<span>{{from}}</span>
+						<span ng-hide="!data">{{from}}</span>
 						<input ng-hide="data" ng-model="ab" class="input" name="ab" id="ab" type="date"/>
 					</div>
 					<div class="col-xs-12 col-md-6 date-till no-padding">
 						<label>bis: </label>
-						<span>{{till}}</span>
+						<span ng-hide="!data">{{till}}</span>
 						<input ng-hide="data" ng-model="bis" class="input" name="bis" id="bis" type="date"/>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row hidden-print">
 					<div class="col-xs-12 buttons row-centered margin-top-md">
 						<button ng-hide="data" href="#" class="button-add" ng-click= "saveFileData(ab_nw, ab_jahr, week, ab, bis)">Eingabe bestätigen</button>
 						<button ng-hide="!data" class="button-add" ng-click= "data=false">Eingabe ändern</button>
@@ -186,11 +187,11 @@
 						</div>
 					</div>
 				</div>
-				</div>
-			<div class="row row-centered">
+			</div>
+			<div class="row row-centered hidden-print">
 				<div class="col-xs-12 margin-top-md buttons">
 					<button class="button-add" ng-click= "saveFileData(bbt, ab_jahr, week, ab, bis)" ng-hide="content" href="#">Speichern</button>
-					<button class="button-add">Drucken</button>
+					<button class="button-add" ng-click = "drucken()" ><a href="javascript:window.print()">Drucken</a></button>
 				</div>
 			</div>
 		</div>
