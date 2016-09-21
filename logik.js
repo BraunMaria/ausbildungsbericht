@@ -18,7 +18,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.init = function(){
        $scope.week = $scope.getweekNumber($scope.today);
         $scope.getWeekDates($scope.today);
-        $scope.nachweisnr();
+        $scope.ab_nw = $scope.nachweisnumber();
+        $scope.ab_jahr = $scope.ausbildungsjahr(2016);
         $scope.fullname = "Maria Braun";
         if ($scope.abteilungen.length >= 1) {
             $scope.selectedAbteilung = $scope.abteilungen[0];
@@ -41,7 +42,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     
     //Funktion zur Berechnung der Kalendar Woche
     $scope.getweekNumber = function(d){
-        console.log(d);
         var kwdate = new Date(d);
         kwdate.setHours(0,0,0);
         kwdate.setDate(kwdate.getDate() + 4 - (kwdate.getDay()||7));
@@ -50,28 +50,48 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         return weekNo;
 	}
     
-    $scope.nachweisnr = function(){
+    $scope.nachweisnumber = function(){
       var currentdate = new Date();
       var currentyear = currentdate.getFullYear();
       var lastyear = currentyear -1;
       var firstazubi = new Date(currentyear, 8, 1);
-      var firstazubikw = $s
+      var firstazubikw = $scope.getweekNumber(firstazubi);
       var firstdaylastyear = new Date(lastyear, 8, 1);
-      var newyear = new Date(lastyear, 11, 31);
-      var allKW = $scope.getweekNumber(newyear);
-      console.log(allKW);
-      if (currentdate != firstazubi){
-        if (currentdate <= newyear) {
-            var thisweeknumber = $scope.getweekNumber(currentdate);
-            var number = thisweeknumber - firstazubi +1;
-            return number;
-        }
-        else if (currentdate >= newyear) {
-            var thisweeknumber = $scope.getweekNumber(currentdate);
-            var number = thisweeknumber + allKW - 
-        }
+      var firstdaylastyearkw = $scope.getweekNumber(firstdaylastyear);
+      
+      if (currentdate < firstazubi) {
+         var newyear = new Date(lastyear, 11, 31);
+         var allKW = $scope.getweekNumber(newyear);
+      }
+      else{
+         var newyear = new Date(currentyear, 11, 31);
+         var allKW = $scope.getweekNumber(newyear);
       }
       
+      if (currentdate <= newyear) {
+          var thisweeknumber = $scope.getweekNumber(currentdate);
+          
+          var number = thisweeknumber - firstazubikw;
+          return number;
+      }
+      else{
+          var thisweeknumber = $scope.getweekNumber(currentdate);
+          var number = thisweeknumber + allKW - firstazubikw;
+          return number; 
+      }
+    }
+    
+    $scope.ausbildungsjahr = function(jahr){
+      var currentdate = new Date();
+      var currentyear = currentdate.getFullYear();
+      var thisseptember = new Date(currentyear, 8, 1)
+      if (currentdate < thisseptember ) {
+        var ausbildungsjahr = currentyear - jahr;
+      }
+      else{
+         var ausbildungsjahr = currentyear -jahr + 1;
+      }
+       return ausbildungsjahr;
     }
     
     $scope.getWeekDates = function(d){
@@ -129,18 +149,16 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.nachweisnr  = $scope.ab_nw;
         $scope.jahr = $scope.ab_jahr;
         $scope.woche = $scope.week;
+        $scope.abteilung = $scope.selectedAbteilung;
+        $scope.name = $scope.fullname;
         $scope.from = $scope.ab.yyyymmdd();
         $scope.till = $scope.bis.yyyymmdd();
-        console.log("test");
         if ($scope.btt) {
            $scope.btkcontent = $scope.btt.split('\n');
         }
         if ($scope.btthour) {
             $scope.btkhour = $scope.btthour.split('\n');
         }
-        
-        console.log($scope.btkcontent);
-        console.log($scope.btkhour);
         $scope.data = true;
         $scope.myValue = true;
     }
@@ -175,14 +193,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     
     $scope.saveContent = function(){
         $scope.btkcontent = $scope.bbt.split('\n');
-        console.log($scope.btkcontent);
         $scope.content = true;
     };
-    
-    //$scope.$watch('anderes', function(newVal, oldVal) {
-    //  console.log("OldVal: ", oldVal);
-    //  console.log("NewVal: ", newVal);
-    //});
     
     $scope.calcHour = function(){
       $scope.btkhour = $scope.btthour !== undefined ? $scope.btthour.split('\n') : "0";
@@ -195,7 +207,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
          hours = hours + parseInt($scope.schoolhour[i]);
       }
       $scope.completehour = hours;
-      console.log($scope.completehour);
     };
     
     $scope.generateArray = function(){

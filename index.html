@@ -20,10 +20,10 @@
     <div class="container-fluid margin-top-xl greyblock" ng-app="">
 		<div class="row">
 			<div class="left-data-block col-xs-12 col-md-7">
-				<div class="name">
+				<div class="name from-group">
 					<label for="fullname">Name: </label>
-					<input ng-model="fullname" value="test" class="input" name="fullname" id="fullname" type="text" ng-hide="myValue"/>
-					<span ng-hide="!myValue">{{name}}</span>
+					<input ng-model="fullname" value="test" class="input form-control" name="fullname" id="fullname" type="text" ng-hide="data"/>
+					<span ng-hide="!data">{{name}}</span>
 				</div>
 				<div class="row margin-top-sm where">
 					<div class="firma col-xs-12 col-md-6">
@@ -32,57 +32,51 @@
 							<img class="logo" src="buttinette.jpg"/>
 						</div>
 					</div>
-					<div class="abteilung col-xs-12 col-md-6">
+					<div class="abteilung col-xs-12 col-md-6 form-group">
 						<label for="field_of_work">Ausbildungsabteilung:</label>
-						<div class="col-xs-12">
-							<span ng-hide="!myValue">{{abteilung}}</span>
-							<select ng-hide="myValue" ng-model="selectedAbteilung">
+						<div class="col-xs-12 from-group">
+							<span ng-hide="!data">{{abteilung}}</span>
+							<select class="from-control" -ng-hide="data" ng-model="selectedAbteilung">
 								<option ng-repeat="abteilung in abteilungen track by $index" ng-name="{{abteilung}}">{{abteilung}}</option>
 							</select>
-							<div class="margin-top-xs">
-							<input ng-hide="myValue" ng-model="modabteilung"></input>
+							<div class="margin-top-xs from-group">
+							<input class="form-control" ng-hide="data" ng-model="modabteilung"></input>
 							</div>
-							<div class="margin-top-xs">
-							<button class="button-add" ng-hide="myValue" ng-click="addAbteilung(modabteilung)">Abteilung hinzufügen</button>
-							<button class="button-remove" ng-hide="myValue" ng-click="delAbteilung(modabteilung)">Abteilung entfernen</button>
+							<div class="margin-top-xs hidden-print">
+							<button class="button-add" ng-hide="data" ng-click="addAbteilung(modabteilung)">Abteilung hinzufügen</button>
+							<button class="button-remove" ng-hide="data" ng-click="delAbteilung(modabteilung)">Abteilung entfernen</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row hidden-print">
-					<div class="col-xs-12 buttons row-centered margin-top-md margin-bottom-md">
-						<button ng-hide="myValue" href="#" class="button-add" ng-click= "savePersonal(fullname, company)">Eingabe bestätigen</button>
-						<button ng-hide="!myValue" class="button-add" ng-click= "myValue=false">Eingabe ändern</button>
-					</div>
-				</div>
 			</div>
 			
-			<div class="right-data-block col-xs-12 col-md-4 margin-top-md no-padding">
+			<div class="right-data-block col-xs-12 col-md-4 margin-top-md no-padding form-group">
 				<div class="col-xs-12 no-padding azubi-nachw">
 					<label for="ab_nw">Ausbildungsnachweis Nr.</label>
 					<span ng-hide="!data">{{nachweisnr}}</span>
-					<input ng-hide="data" ng-model="ab_nw" class="input" name="ab_nw" id="ab_nw" type="number"/>
+					<input ng-hide="data" ng-model="ab_nw" class="input form-control" name="ab_nw" id="ab_nw" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-sm no-padding azubi_jahr">
 					<label for="ab_jahr">Ausbildungsjahr: </label>
 					<span ng-hide="!data">{{jahr}}</span>
-					<input ng-hide="data" ng-model="ab_jahr" class="input" name="ab_jahr" id="ab_jahr" type="number"/>
+					<input ng-hide="data" ng-model="ab_jahr" class="input form-control" name="ab_jahr" id="ab_jahr" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-xxl no-padding week">
 					<label for="week">Woche: </label>
 					<span ng-hide="!data">{{week}}</span>
-					<input ng-hide="data" ng-model="week" class="input" name="week" id="week"  placeholder="{{weeknumber}}" value="{{weeknumber}}"/>
+					<input ng-hide="data" ng-model="week" class="input form-control" name="week" id="week"  placeholder="{{weeknumber}}" value="{{weeknumber}}"/>
 				</div>
 				<div class="col-xs-12 margin-top-xxl no-padding date">
 					<div class="col-xs-12 col-md-6 date-from no-padding">
 						<label >Von: </label>
 						<span ng-hide="!data">{{from}}</span>
-						<input ng-hide="data" ng-model="ab" class="input" name="ab" id="ab" type="date"/>
+						<input ng-hide="data" ng-model="ab" class="input form-control" name="ab" id="ab" type="date"/>
 					</div>
 					<div class="col-xs-12 col-md-6 date-till no-padding">
 						<label>bis: </label>
 						<span ng-hide="!data">{{till}}</span>
-						<input ng-hide="data" ng-model="bis" class="input" name="bis" id="bis" type="date"/>
+						<input ng-hide="data" ng-model="bis" class="input form-control" name="bis" id="bis" type="date"/>
 					</div>
 				</div>
 				<div class="row hidden-print">
