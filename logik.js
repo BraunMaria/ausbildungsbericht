@@ -4,8 +4,10 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
    $scope.abteilungen = [ "E-Commerce", "Einkauf", "Service", "Buchhaltung", "Personalwesen",
 				"Marketing", "Logistik", "Export", "EDV-Host", "IT-Netzwerke", "Grafik" ]
     $scope.btkcontent = [];
+    $scope.btkhour = [];
     $scope.tgk = [];
     $scope.bs = [];
+    $scope.faecher = ["IT_Systeme: ", "Anwendungsentwicklung: ", "Vernetzte Systeme: ", "BWP: ", "Sozialkunde: ", "Englisch: "];
     $scope.name = "";
     $scope.company = "";
     $scope.field = "";
@@ -14,12 +16,13 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.count = 0;
     
     $scope.init = function(){
-        $scope.getweekNumber($scope.today);
+       $scope.week = $scope.getweekNumber($scope.today);
         $scope.getWeekDates($scope.today);
+        $scope.nachweisnr();
+        $scope.fullname = "Maria Braun";
         if ($scope.abteilungen.length >= 1) {
             $scope.selectedAbteilung = $scope.abteilungen[0];
         }
-        
     };
   
     //Funktion um Abteilungen im Dropdown hinzuzufügen
@@ -38,13 +41,38 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     
     //Funktion zur Berechnung der Kalendar Woche
     $scope.getweekNumber = function(d){
+        console.log(d);
         var kwdate = new Date(d);
         kwdate.setHours(0,0,0);
         kwdate.setDate(kwdate.getDate() + 4 - (kwdate.getDay()||7));
         var yearStart = new Date(kwdate.getFullYear(),0,1);
         var weekNo = Math.ceil(( ( (kwdate - yearStart) / 86400000) + 1)/7);
-        $scope.week = weekNo;
+        return weekNo;
 	}
+    
+    $scope.nachweisnr = function(){
+      var currentdate = new Date();
+      var currentyear = currentdate.getFullYear();
+      var lastyear = currentyear -1;
+      var firstazubi = new Date(currentyear, 8, 1);
+      var firstazubikw = $s
+      var firstdaylastyear = new Date(lastyear, 8, 1);
+      var newyear = new Date(lastyear, 11, 31);
+      var allKW = $scope.getweekNumber(newyear);
+      console.log(allKW);
+      if (currentdate != firstazubi){
+        if (currentdate <= newyear) {
+            var thisweeknumber = $scope.getweekNumber(currentdate);
+            var number = thisweeknumber - firstazubi +1;
+            return number;
+        }
+        else if (currentdate >= newyear) {
+            var thisweeknumber = $scope.getweekNumber(currentdate);
+            var number = thisweeknumber + allKW - 
+        }
+      }
+      
+    }
     
     $scope.getWeekDates = function(d){
         $scope.currdate = new Date(d);
@@ -97,19 +125,78 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     };
         
     //Funktion um die Nachweisdaten zu speichern    
-    $scope.saveFileData = function(ab_nw, ab_jahr, week, ab, bis){
-        $scope.nachweisnr  = ab_nw;
-        $scope.jahr = ab_jahr;
-        $scope.woche = week;
-        $scope.from = ab.yyyymmdd();
-        $scope.till = bis.yyyymmdd();
+    $scope.saveFileData = function(){
+        $scope.nachweisnr  = $scope.ab_nw;
+        $scope.jahr = $scope.ab_jahr;
+        $scope.woche = $scope.week;
+        $scope.from = $scope.ab.yyyymmdd();
+        $scope.till = $scope.bis.yyyymmdd();
+        console.log("test");
+        if ($scope.btt) {
+           $scope.btkcontent = $scope.btt.split('\n');
+        }
+        if ($scope.btthour) {
+            $scope.btkhour = $scope.btthour.split('\n');
+        }
+        
+        console.log($scope.btkcontent);
+        console.log($scope.btkhour);
         $scope.data = true;
+        $scope.myValue = true;
     }
     
-    $scope.saveContent = function(bbt, bbt_h, bav, bav_h, bs, bs_h){
-        $scope.btkcontent = bbt.split('\n');
-        $scope.content = true;
+    $scope.fillKrank = function(){
+      $scope.btt = "-Krank";
+      $scope.abvorgang = "-Krank";
+      $scope.btthour = "0";
+      $scope.schule = "";
     }
+    
+    $scope.fillUrlaub = function(){
+      $scope.btt = "- Urlaub";
+      $scope.abvorgang = "- Urlaub";
+      $scope.btthour = "0";
+      $scope.schule = "";
+    }
+    
+    $scope.fillSchule = function(){
+      $scope.schule = ""
+      $scope.btt = "";
+      $scope.abvorgang = "";;
+      for( var x = 0; x < $scope.faecher.length; x++){
+         if ($scope.schule ) {
+            $scope.schule = $scope.schule + $scope.faecher[x] + '\n';
+         }
+         else{
+         $scope.schule = $scope.faecher[x] + '\n';
+         }
+      }
+    };
+    
+    $scope.saveContent = function(){
+        $scope.btkcontent = $scope.bbt.split('\n');
+        console.log($scope.btkcontent);
+        $scope.content = true;
+    };
+    
+    //$scope.$watch('anderes', function(newVal, oldVal) {
+    //  console.log("OldVal: ", oldVal);
+    //  console.log("NewVal: ", newVal);
+    //});
+    
+    $scope.calcHour = function(){
+      $scope.btkhour = $scope.btthour !== undefined ? $scope.btthour.split('\n') : "0";
+      $scope.schoolhour = $scope.schulehour !== undefined ? $scope.schulehour.split('\n') : "0";
+      var hours = 0;
+      for ( var i = 0; i < $scope.btkhour.length; i++){
+         hours = hours + parseInt($scope.btkhour[i]);
+      }
+      for ( var i = 0; i < $scope.schoolhour.length; i++){
+         hours = hours + parseInt($scope.schoolhour[i]);
+      }
+      $scope.completehour = hours;
+      console.log($scope.completehour);
+    };
     
     $scope.generateArray = function(){
             

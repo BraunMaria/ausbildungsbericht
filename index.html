@@ -87,10 +87,17 @@
 				</div>
 				<div class="row hidden-print">
 					<div class="col-xs-12 buttons row-centered margin-top-md">
-						<button ng-hide="data" href="#" class="button-add" ng-click= "saveFileData(ab_nw, ab_jahr, week, ab, bis)">Eingabe bestätigen</button>
+						<button ng-hide="data" href="#" class="button-add" ng-click= "saveFileData()">Eingabe bestätigen</button>
 						<button ng-hide="!data" class="button-add" ng-click= "data=false">Eingabe ändern</button>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class = "row hidden-print">
+			<div class="col-xs-12 buttons row-centered margin-top-md">
+				<button  class="button-add" ng-click= "fillKrank()">Krank</button>
+				<button  class="button-add" ng-click= "fillUrlaub()">Urlaub</button>
+				<button  class="button-add" ng-click= "fillSchule()">Berufsschule</button>
 			</div>
 		</div>
 		<div class="row">
@@ -104,12 +111,12 @@
 							</tr>
 							<tr>
 								<td>
-									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text"" ng-hide="content" rows=18"></textarea>
+									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text" ng-hide="content" rows=18"></textarea>
 									<span class="t" ng-repeat="taetigkeit in btkcontent track by $index">{{bbt}}</span>
-									<span id="btt_print"></span>
 								</td>
 								<td>
-									<textarea class="conten-area" rows=18"></textarea>
+									<textarea ng-model="btthour" name="bbthour" id="bbthour" class="conten-area" rows=18" ng-change="calcHour()"></textarea>
+									<span class="t" ng-repeat="taetigkeit in btkcontent track by $index">{{bbthour}}</span>
 								</td>
 							</tr>
 						</table>
@@ -125,10 +132,10 @@
 							</tr>
 							<tr>
 								<td>
-									<textarea class="conten-area" rows=18"></textarea>
+									<textarea ng-model="abvorgang" class="conten-area" rows=18"></textarea>
 								</td>
 								<td>
-									<textarea class="conten-area" rows=18"></textarea>
+									<textarea ng-model="abvorganghour" class="conten-area" rows=18"></textarea>
 								</td>
 							</tr>
 						</table>
@@ -144,15 +151,18 @@
 							</tr> 
 							<tr>
 								<td>
-									<textarea class="conten-area" rows=9"></textarea>
+									<textarea ng-model="schule" class="conten-area" name="schule" id="schule" type="text" ng-hide="content" rows="9"></textarea>
+									
 								</td>
 								<td>
-									<textarea class="conten-area" rows=9"></textarea>
+									<textarea class="conten-area" rows="9" ng-model="schulehour" ng-change="calcHour()"></textarea>
 								</td>
 							</tr>
 							<tr>
 								<td class="text-right">Gesamtstunden:</td>
-								<td><textarea class="conten-area" rows=1"></textarea></td>
+								<td>
+									{{completehour}}
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -190,7 +200,7 @@
 			</div>
 			<div class="row row-centered hidden-print">
 				<div class="col-xs-12 margin-top-md buttons">
-					<button class="button-add" ng-click= "saveFileData(bbt, ab_jahr, week, ab, bis)" ng-hide="content" href="#">Speichern</button>
+					<button class="button-add" ng-click= "saveFileData()" ng-hide="content" href="#">Speichern</button>
 					<button class="button-add" ng-click = "drucken()" ><a href="javascript:window.print()">Drucken</a></button>
 				</div>
 			</div>
