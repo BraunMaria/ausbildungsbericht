@@ -7,7 +7,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.btkhour = [];
     $scope.tgk = [];
     $scope.bs = [];
-    $scope.faecher = ["IT_Systeme: ", "Anwendungsentwicklung: ", "Vernetzte Systeme: ", "BWP: ", "Sozialkunde: ", "Englisch: "];
+    $scope.faecher = ["IT-Systeme: ", "Anwendungsentwicklung: ", "Vernetzte Systeme: ", "BWP: ", "Sozialkunde: ", "Englisch: "];
     $scope.name = "";
     $scope.company = "";
     $scope.field = "";
@@ -24,6 +24,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         if ($scope.abteilungen.length >= 1) {
             $scope.selectedAbteilung = $scope.abteilungen[0];
         }
+        $scope.saveFileData();
     };
   
     //Funktion um Abteilungen im Dropdown hinzuzufügen
@@ -50,6 +51,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         return weekNo;
 	}
     
+    //Funktion zur Berechnung der Nachweisnummer
     $scope.nachweisnumber = function(){
       var currentdate = new Date();
       var currentyear = currentdate.getFullYear();
@@ -81,6 +83,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       }
     }
     
+    //Funktion zur Berechnung des Ausbildungsjahres
     $scope.ausbildungsjahr = function(jahr){
       var currentdate = new Date();
       var currentyear = currentdate.getFullYear();
@@ -94,6 +97,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
        return ausbildungsjahr;
     }
     
+    //Funktion zu Berechnung von Kalendarwochen
     $scope.getWeekDates = function(d){
         $scope.currdate = new Date(d);
         var subtract = $scope.currdate.getDay() -1;
@@ -108,6 +112,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         
     };
     
+    //Funktion die beim Drucken die Felder füllt und Inputfelder ausblendet
     $scope.drucken = function(){
       $scope.myValue = true;
       $scope.data = true;
@@ -163,6 +168,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.myValue = true;
     }
     
+    //Funktion um bei Krankheit die Felder auszufüllen
     $scope.fillKrank = function(){
       $scope.btt = "-Krank";
       $scope.abvorgang = "-Krank";
@@ -170,6 +176,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       $scope.schule = "";
     }
     
+    //Funktion um bei Urlaub die Felder auszufüllen
     $scope.fillUrlaub = function(){
       $scope.btt = "- Urlaub";
       $scope.abvorgang = "- Urlaub";
@@ -177,9 +184,11 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       $scope.schule = "";
     }
     
+    //Funktion um bei Schulwoche die Felder auszufüllen mit Fächern
     $scope.fillSchule = function(){
       $scope.schule = ""
       $scope.btt = "";
+      $scope.btthour = "";
       $scope.abvorgang = "";;
       for( var x = 0; x < $scope.faecher.length; x++){
          if ($scope.schule ) {
@@ -191,8 +200,14 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       }
     };
     
+    //Funktion zur Speicherung vom Betriebliche Tätigkeit und deren Stunden  
     $scope.saveContent = function(){
-        $scope.btkcontent = $scope.bbt.split('\n');
+      if ($scope.bbt) {
+         $scope.btkcontent = $scope.bbt.split('\n');
+      }
+      if ($scope.bbthour) {
+         $scope.btkhour = $scope.bbthour.split('\n');
+      }
         $scope.content = true;
     };
     

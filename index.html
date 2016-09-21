@@ -36,10 +36,10 @@
 						<label for="field_of_work">Ausbildungsabteilung:</label>
 						<div class="col-xs-12 from-group">
 							<span ng-hide="!data">{{abteilung}}</span>
-							<select class="from-control" -ng-hide="data" ng-model="selectedAbteilung">
+							<select class="from-control" ng-hide="data" ng-model="selectedAbteilung">
 								<option ng-repeat="abteilung in abteilungen track by $index" ng-name="{{abteilung}}">{{abteilung}}</option>
 							</select>
-							<div class="margin-top-xs from-group">
+							<div class="margin-top-xs from-group hidden-print">
 							<input class="form-control" ng-hide="data" ng-model="modabteilung"></input>
 							</div>
 							<div class="margin-top-xs hidden-print">

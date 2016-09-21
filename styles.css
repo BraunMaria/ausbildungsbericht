@@ -116,8 +116,6 @@
 }
 
 
-
-
 .signatures{
     padding-top: 60px;
     border-right: 1px solid #000000;
@@ -139,6 +137,18 @@
 
 .richtigkeit span{
     text-align: left;
+}
+
+.form-control{
+    width: auto;
+}
+
+.form-group{
+    margin-bottom: 0px;
+}
+
+a{
+    color: white;
 }
 
 hr{
