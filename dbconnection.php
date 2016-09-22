@@ -1,6 +1,14 @@
-<?php 
+<?php
+$message = "wrong answer";
+echo "<script type='text/javascript'>alert('$message');</script>";
+
+
+echo "fehlgeschlafen";
 
 $redis = new Redis();
+
+
+
 
 try {
 	$redis->connect('10.0.0.3');

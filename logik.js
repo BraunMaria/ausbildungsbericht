@@ -14,6 +14,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.weeknumber;
     $scope.today = new Date();
     $scope.count = 0;
+    $scope.berichtshefte = [];
     
     $scope.init = function(){
        $scope.week = $scope.getweekNumber($scope.today);
@@ -223,6 +224,32 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       }
       $scope.completehour = hours;
     };
+    
+      $scope.fetchBerichtshefte = function(key) {
+        $.ajax({    
+            type: "POST",
+            url: "dbconnection.php",  
+            data: {
+                aktion: "getAllKeys",
+            },
+            success: function(response){                    
+                var raw = response.substr(1, response.length-2);
+                var str_array = raw.split(',');
+      
+                for(var i = 0; i < str_array.length; i++) {
+                    var x = str_array[i].replace(/\"/g, "");
+                    $scope.berichtshefte.push(x);
+                }
+                $scope.berichtshefte = str_array;
+                $scope.$apply();
+                console.log("dberfolgrei");
+            },
+            error: function(response) {
+                console.log(response);
+            }
+      
+        });
+      }
     
     $scope.generateArray = function(){
             

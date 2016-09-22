@@ -22,8 +22,8 @@
                 <input class="form-control" ng-model="entername" value="test" name="entername" id="entername" type="text" />
             </div>
             <div class= "col-xs-12">
-                <button class="button-add"  onclick="fetchBerichtshefte(entername)" >Neues Berichtsheft anlegen</button>
-                <button class="button-add"  onclick="location.href='berichtsheft.html'" >Berichtshefte anzeigen</button>
+                <button class="button-add"  ng-click="fetchBerichtshefte(entername)" >Neues Berichtsheft anlegen</button>
+                <button class="button-add"  onclick="location.href='berichtsheft.php'" >Berichtshefte anzeigen</button>
             </div>
         </div>
     </div>
