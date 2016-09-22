@@ -1,6 +1,7 @@
 <html ng-app="myApp">
 <head>
 <meta charset="utf-8" />
+<title>Berichtsheftverwaltung</title>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -25,6 +26,9 @@
                 <button class="button-add"  ng-click="fetchBerichtshefte(entername)" >Neues Berichtsheft anlegen</button>
                 <button class="button-add"  onclick="location.href='berichtsheft.php'" >Berichtshefte anzeigen</button>
             </div>
+			<div class="col-xs-12">
+				<textarea ng-model="berichtshefte" name="berichtshefte" id="berichtshefte" type="text"></textarea>
+			</div>
         </div>
     </div>
     

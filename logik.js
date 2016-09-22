@@ -22,6 +22,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.ab_nw = $scope.nachweisnumber();
         $scope.ab_jahr = $scope.ausbildungsjahr(2016);
         $scope.fullname = "Maria Braun";
+        
+        console.log(mykey);
         if ($scope.abteilungen.length >= 1) {
             $scope.selectedAbteilung = $scope.abteilungen[0];
         }
@@ -225,24 +227,63 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       $scope.completehour = hours;
     };
     
+    $scope.convertDataIntoJSON = function() {
+      var name = $scope.fullname;
+      var von = $scope.ab;
+      var bis = $scope.bis;
+      var jahr = $scope.ab_jahr;
+      var abteilung = $scope.selectedAbteilung;
+      var ab_nw = $scope.ab_nw;
+      var jsonst = '{"berichtsheft" : ['+
+      '{"name":'+name+
+      '"datevon":' +von+
+      '"datebis":' +bis+
+      '"abjahr:":' +jahr+
+      '"abteilung":' + abteilung+
+      '"nachweisnr":' + ab_nw+
+      '"woche":' + $scope.week+
+      '"taetigkeiten":' + $scope.btt+
+      '"taetigkeitenstunden":' + $scope.btthour+
+      '"arbeitsvorgang":' + $scope.abvorgang+
+      '"schule":' + $scope.schule+
+      '"schulehour":' + $scope.schulehour+
+      ']}'
+      
+      //var jsonstring = "";
+      //jsonstring = jsonstring.concat("name:" + $scope.fullname+";");
+      //jsonstring = jsonstring.concat("datevon:" + $scope.ab+";");
+      //jsonstring = jsonstring.concat("datebis:" + $scope.bis+";");
+      //jsonstring = jsonstring.concat("abjahr:" + $scope.ab_jahr+";");
+      //jsonstring = jsonstring.concat("abteilung:" + $scope.selectedAbteilung+";");
+      //jsonstring = jsonstring.concat("nachweisnr:" + $scope.ab_nw+";");
+      //jsonstring = jsonstring.concat("woche:" + $scope.week+";");
+      //jsonstring = jsonstring.concat("taetigkeiten:" + $scope.btt+";");
+      //jsonstring = jsonstring.concat("taetigkeitenstunden:" + $scope.btthour+";");
+      //jsonstring = jsonstring.concat("arbeitsvorgang:" + $scope.abvorgang+";");
+      //jsonstring = jsonstring.concat("schule:" + $scope.schule+";");
+      //jsonstring = jsonstring.concat("schulehour:" + $scope.schulehour);
+      jsonstring = JSON.stringify(jsonst)
+      console.log(jsonstring);
+      return jsonst;
+      };
+    
       $scope.fetchBerichtshefte = function(key) {
         $.ajax({    
-            type: "POST",
-            url: "dbconnection.php",  
-            data: {
-                aktion: "getAllKeys",
-            },
-            success: function(response){                    
-                var raw = response.substr(1, response.length-2);
-                var str_array = raw.split(',');
-      
+            url: 'getData.php',
+			    type: 'post',
+			    data: {
+			    	loadkey: key,
+			    },
+            success: function(response){
+                var str_array = response.split(',');
+                
                 for(var i = 0; i < str_array.length; i++) {
                     var x = str_array[i].replace(/\"/g, "");
                     $scope.berichtshefte.push(x);
                 }
                 $scope.berichtshefte = str_array;
                 $scope.$apply();
-                console.log("dberfolgrei");
+                console.log(response);
             },
             error: function(response) {
                 console.log(response);
@@ -250,6 +291,30 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       
         });
       }
+      
+      $scope.saveDataToDb = function() {
+			
+				var json = $scope.convertDataIntoJSON();
+                var mykey = $scope.fullname + " " + $scope.ab_jahr + " " + $scope.ab_nw;;
+				
+				console.log('attempting to save data to redis with following json:\n');
+				
+				jQuery.ajax({
+					url: 'saveData.php',
+					type: 'post',
+					data: {
+						data: json,
+						key: mykey,
+					},
+					success: function(){
+                     console.log("erfolgreich gespeichert")
+					},
+                    error: function() {
+                        console.log("fehlgeschlagen");
+                    }
+                    
+				});
+		};
     
     $scope.generateArray = function(){
             

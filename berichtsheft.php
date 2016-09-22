@@ -1,6 +1,7 @@
 <html ng-app="myApp">
 <head>
 <meta charset="utf-8" />
+<title>Berichtsheft</title>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,7 +15,6 @@
 <script language="javascript" type="text/javascript" src="logik.js"></script>
 <link rel="stylesheet" href="styles.css">
 <h1> Berichtsheft</h1>
-<?php phpinfo() ?>
 </head>
 <body ng-controller="MainCtrl" data-ng-init="init()">
     <div class="container-fluid margin-top-xl greyblock" ng-app="">
@@ -194,7 +194,7 @@
 			</div>
 			<div class="row row-centered hidden-print">
 				<div class="col-xs-12 margin-top-md buttons">
-					<button class="button-add" ng-click= "saveFileData()" ng-hide="content" href="#">Speichern</button>
+					<button class="button-add" ng-click= "saveDataToDb()" ng-hide="content" href="#">Speichern</button>
 					<button class="button-add" ng-click = "drucken()" ><a href="javascript:window.print()">Drucken</a></button>
 					<button class="button-add" ng-click= "fetchberichtshefte(fullname)" onclick="location.href='index.html'" >Berichtshefte anzeigen</button>
 				</div>
