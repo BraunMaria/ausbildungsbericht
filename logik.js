@@ -14,7 +14,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.weeknumber;
     $scope.today = new Date();
     $scope.count = 0;
-    $scope.berichtshefte = [];
+    $scope.berichtsheftearray = [];
     
     $scope.init = function(){
        $scope.week = $scope.getweekNumber($scope.today);
@@ -275,15 +275,15 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
 			    	loadkey: key,
 			    },
             success: function(response){
-                var str_array = response.split(',');
-                
-                for(var i = 0; i < str_array.length; i++) {
-                    var x = str_array[i].replace(/\"/g, "");
-                    $scope.berichtshefte.push(x);
+                var str_array = response.split('"');
+                for(var i = 1; i < str_array.length; i++) {
+                    var x = str_array[i].replace(":", "");
+                    $scope.berichtsheftearray.push(x);
                 }
                 $scope.berichtshefte = str_array;
                 $scope.$apply();
-                console.log(response);
+                var jsstring = JSON.parse($scope.berichtsheftearray);
+                console.log(jsstring);
             },
             error: function(response) {
                 console.log(response);
