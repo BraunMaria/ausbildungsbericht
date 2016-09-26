@@ -147,6 +147,11 @@
     margin-bottom: 0px;
 }
 
+.contentarea{
+    margin-top: 15px;
+    padding: 10px;
+}
+
 a{
     color: white;
 }

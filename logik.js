@@ -271,7 +271,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     
       $scope.fetchBerichtshefte = function(key) {
         $.ajax({    
-            url: 'getData.php',
+            url: 'getKeys.php',
 			    type: 'post',
 			    data: {
 			    	loadkey: key,
@@ -333,6 +333,75 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                     
 				});
 		};
+        
+   $scope.getDatafromDB = function(name, jahr, nummer){
+      var key = name + " " + jahr + " " + nummer;
+      console.log(key);
+      
+      jQuery.ajax({
+			    url: 'getData.php',
+			    type: 'post',
+			    data: {
+			    	loadkey: key,
+			    },
+			    success: function(response){
+                  console.log(response);
+			    	var str_array = response.split(';');
+					//for(var i = 0; i < str_array.length; i++) {
+					//	var x = str_array[i].split(":");
+					//	var sw = x[0];
+					//	switch(sw){
+					//		case "datevon":
+					//			
+					//			$scope.date_von = new Date(x[1]);
+					//			document.getElementById("von").value = $scope.date_von;
+					//			$scope.$apply();
+					//		break;
+					//		case "datebis":
+					//			$scope.date_bis = new Date(x[1]);
+					//			document.getElementById("bis").value = $scope.date_bis;
+					//			$scope.$apply();
+					//		break;
+					//		case "name":
+					//			$scope.name = x[1];
+					//			$scope.$apply();
+					//		break;
+					//		case "ea":
+					//			$scope.generateArray();
+					//			$scope.updateDate();
+					//			$scope.showtable=true;
+					//			$scope.ea = x[1];
+					//			$scope.$apply();
+					//		break;
+					//		case "rv":
+					//			$scope.rv = x[1];
+					//			$scope.$apply();
+					//		break;
+					//		case "userList":
+					//			var csla = x[1].split(",");
+					//			
+					//			$scope.userList = csla;
+					//			$scope.$apply();
+					//		break;
+					//		case "dataList":
+					//			var csla = x[1].split(",");
+					//			var counter = 0;
+					//			for (var tage=0;tage<$scope.dateList.length; tage++) {
+					//				for(var y=0;y<$scope.userList.length; y++) {
+					//					document.getElementById(""+tage+y).value = csla[counter];
+					//					counter++;
+					//				}
+					//			}
+					//			$scope.updateDate();
+					//			$scope.$apply();
+					//		break;
+					//	}
+					//}
+					$scope.$apply();
+					$scope.showtable=true;
+			    }});
+      
+   }
     
     $scope.generateArray = function(){
             
