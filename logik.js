@@ -15,6 +15,9 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.today = new Date();
     $scope.count = 0;
     $scope.berichtsheftearray = [];
+    $scope.ausbildungsjahr1 = [];
+    $scope.ausbildungsjahr2 = [];
+    $scope.ausbildungsjahr3 = [];
     
     $scope.init = function(){
        $scope.week = $scope.getweekNumber($scope.today);
@@ -23,7 +26,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.ab_jahr = $scope.ausbildungsjahr(2016);
         $scope.fullname = "Maria Braun";
         
-        console.log(mykey);
         if ($scope.abteilungen.length >= 1) {
             $scope.selectedAbteilung = $scope.abteilungen[0];
         }
@@ -273,17 +275,33 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
 			    type: 'post',
 			    data: {
 			    	loadkey: key,
+                    aktion: "getAllKeys"
 			    },
             success: function(response){
-                var str_array = response.split('"');
-                for(var i = 1; i < str_array.length; i++) {
-                    var x = str_array[i].replace(":", "");
-                    $scope.berichtsheftearray.push(x);
-                }
-                $scope.berichtshefte = str_array;
-                $scope.$apply();
-                var jsstring = JSON.parse($scope.berichtsheftearray);
-                console.log(jsstring);
+               $scope.berichtsheftearray = [];
+               var raw = response.substr(1, response.length-2);
+					var str_array = raw.split(',');
+
+					for(var i = 0; i < str_array.length; i++) {
+						var x = str_array[i].replace(/\"/g, "");
+                        var nachweis = x[x.length-1];
+                        var jahrausbildung = x[x.length-3];
+                        if (jahrausbildung == 3) {
+                            $scope.ausbildungsjahr3.push(nachweis);
+                        } else if(jahrausbildung == 2){
+                           $scope.ausbildungsjahr2.push(nachweis);
+                        }
+                        else{
+                           $scope.ausbildungsjahr1.push(nachweis);
+                        }
+                        
+						$scope.berichtsheftearray.push(x);
+					}
+					$scope.berichtshefte  = str_array;
+					$scope.$apply();
+                    
+                  
+               
             },
             error: function(response) {
                 console.log(response);

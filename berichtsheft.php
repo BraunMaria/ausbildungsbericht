@@ -18,6 +18,7 @@
 </head>
 <body ng-controller="MainCtrl" data-ng-init="init()">
     <div class="container-fluid margin-top-xl greyblock" ng-app="">
+		<? phpinfo() ?>
 		<div class="row">
 			<div class="left-data-block col-xs-12 col-md-7">
 				<div class="name from-group">

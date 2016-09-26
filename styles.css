@@ -237,6 +237,10 @@ button{
     
 }
 
+li{
+    list-style: none;
+}
+
 @media print{
     h1{
         display: none;
