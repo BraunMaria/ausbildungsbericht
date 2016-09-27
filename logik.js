@@ -161,6 +161,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.woche = $scope.week;
         $scope.abteilung = $scope.selectedAbteilung;
         $scope.name = $scope.fullname;
+        console.log(typeof $scope.ab);
         $scope.from = $scope.ab.yyyymmdd();
         $scope.till = $scope.bis.yyyymmdd();
         if ($scope.btt) {
@@ -240,7 +241,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       '{"name":'+name+ ";" +
       '"datevon":' +von+ ";" +
       '"datebis":' +bis+ ";" +
-      '"abjahr:":' +jahr+ ";" +
+      '"abjahr":' +jahr+ ";" +
       '"abteilung":' + abteilung+ ";" +
       '"nachweisnr":' + ab_nw+ ";" +
       '"woche":' + $scope.week+ ";" +
@@ -334,199 +335,92 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
 				});
 		};
         
-   $scope.getDatafromDB = function(name, jahr, nummer){
-      var key = name + " " + jahr + " " + nummer;
+      $scope.getDatafromDB = function(name, jahr, nummer){
+         var key = name + " " + jahr + " " + nummer;
       
-      jQuery.ajax({
-			    url: 'getData.php',
-			    type: 'post',
-			    data: {
-			    	loadkey: key,
-			    },
-			    success: function(response){
-			    	var str_array = response.split(';');
-                    $scope.fullname = "test";
-                    console.log("Stringarray: "+str_array)
-					for(var i = 0; i < str_array.length; i++) {
-						var x = str_array[i].replace(/\"/g, "");
-                        
-                        console.log("x: "+x);
-                        var new_array = x.split(':');
-                        console.log(new_array);
-						var sw = new_array[0];
-                        console.log("sw: "+sw);
-						switch(sw){
-							case "datevon":
-								
-								$scope.date_von = new Date(x[1]);
-								document.getElementById("von").value = $scope.date_von;
-								$scope.$apply();
-							break;
-							case "datebis":
-								$scope.date_bis = new Date(x[1]);
-								document.getElementById("bis").value = $scope.date_bis;
-								$scope.$apply();
-							break;
-							case "name":
-								$scope.name = x[1];
-								$scope.$apply();
-							break;
-							case "ea":
-								$scope.generateArray();
-								$scope.updateDate();
-								$scope.showtable=true;
-								$scope.ea = x[1];
-								$scope.$apply();
-							break;
-							case "rv":
-								$scope.rv = x[1];
-								$scope.$apply();
-							break;
-							case "userList":
-								var csla = x[1].split(",");
-								
-								$scope.userList = csla;
-								$scope.$apply();
-							break;
-							case "dataList":
-								var csla = x[1].split(",");
-								var counter = 0;
-								for (var tage=0;tage<$scope.dateList.length; tage++) {
-									for(var y=0;y<$scope.userList.length; y++) {
-										document.getElementById(""+tage+y).value = csla[counter];
-										counter++;
-									}
-								}
-								$scope.updateDate();
-								$scope.$apply();
-							break;
-						}
-					}
-					$scope.$apply();
-					$scope.showtable=true;
-			    }});
+         jQuery.ajax({
+         url: 'getData.php',
+         type: 'post',
+         data: {
+         loadkey: key,
+         },
+         success: function(response){
+            var cutresponse = response.substr(4, response.length-2);
+            var str_array = cutresponse.split(';');
+            
+            for(var i = 0; i < str_array.length; i++) {
+               var x = str_array[i].replace(/\"/g, "");
+               var new_array = x.split(':');
+              
+               var sw = new_array[0]
+               var scw = sw.substr(1, sw.length-2);
+               console.log(sw);
+               switch(scw){
+                  case "datevon":
+                     var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
+                     $scope.date_von = new Date(datestring);
+                     $scope.ab = $scope.date_von;
+                     $scope.$apply();
+                  break;
+                  case "datebis":
+                     var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
+                     $scope.date_bis = new Date(datestring);
+                     $scope.bis = $scope.date_bis;
+                     $scope.$apply();
+                  break;
+                  case "name":
+                     $scope.fullname = new_array[1];
+                     $scope.$apply();
+                  break;
+                  case "abjah":
+                     $scope.ab_jahr = parseInt(new_array[2]);
+                     $scope.$apply();
+                     console.log("abjahr");
+                  break;
+                  case "abteilung":
+                     for ( var i = 0; i < $scope.abteilungen.length; i++) {
+                        if ($scope.abteilungen[i] == new_array[1]) {
+                           $scope.selectedAbteilung = $scope.abteilungen[i]
+                        };
+                     };
+                     $scope.$apply();
+                  break;
+                  case "nachweisnr":
+                     $scope.ab_nw = parseInt(new_array[1]);
+                     console.log("nachweisnummer");
+                     $scope.$apply();
+                  break;
+                  case "woche":
+                     $scope.week = parseInt(new_array[1]);
+                     $scope.$apply();
+                  break;
+                  case "taetigkeiten":
+                     $scope.btt = new_array[1];
+                  break;
+                  case "taetigkeitenstunden":
+                     $scope.bbthour = new_array[1];
+                     $scope.$apply();
+                  break;
+                  case "arbeitsvorgang":
+                     $scope.abvorgang = new_array[1];
+                     $scope.$apply();
+                  break;
+                  case "schule":
+                     $scope.schule = new_array[1];
+                     
+                     $scope.$apply();
+                  break;
+                  case "schulehour":
+                     $scope.schulehour = new_array[1];
+                     
+                     $scope.$apply();
+                  break;
+               }
+            }
+            $scope.$apply();
+            $scope.showtable=true;
+         }});
       
    }
-    
-    $scope.generateArray = function(){
-            
-        for ( var i = 0; i <= $scope.dateList.length; i++) {
-            $scope.dataList[i] = new Array($scope.dateList.length+1);
-        }
-         
-        for ( var x = 0; x < $scope.fruitList.length; x++){
-            $scope.dataList[x][0] = $scope.fruitList[x];
-            for ( var y = 1; y <= $scope.dateList.length; y++){
-                $scope.dataList[x][y] = 0;
-              
-            }
-        }    
-    }
-    
-    
-    $scope.updateList = function(){
-        for ( var i = 0; i <= $scope.dateList.length; i++) {
-            $scope.dataList[i] = new Array($scope.dateList.length+1);
-        }
-        
-        for ( var x = 0; x < $scope.fruitList.length; x++) {
-                        for (var y = 0; y < $scope.dateList.length+1; y++) {
-                            var xString = x + "";
-                            var yString = y + "";
-                            var xyString = x + "" + y;
-                           
-                           
-                            $scope.dataList[x][y] = document.getElementById(xyString).value;
-                            
-                        }
-                    }
-    }
-	
-    				
-    $scope.addFruit = function(fruit){
-       
-        for (var i = 0; i < $scope.fruitList.length; i++) {
-            if($scope.fruitList[i] == fruit){
-                $scope.fruitExists = true;
-                return;
-            }
-        }
-        $scope.fruitExists = false;
-        $scope.fruitList.push(fruit);
-        $scope.generateArray();
-    }
-    
-    
-    $scope.delFruit = function(fruit){
-        $scope.updateList();
-
-        for (var i = 0; i < $scope.fruitList.length; i++) {
-            if($scope.fruitList[i] == fruit){
-                $scope.fruitList.splice(i, 1);
-                delete $scope.dataList[i];
-                $scope.updateList();
-                $scope.generateArray();
-                $scope.fruitnonExistent = false;
-                return
-            }
-        }    
-        $scope.fruitnonExistent = true;
-    }
-    
-    $scope.showArray = function(){
-        for ( var x = 0; x<$scope.fruitList.length; x++){
-            $scope.dataList[x][0] = $scope.fruitList[x];
-            for ( var y = 0; y <= $scope.dateList.length; y++){
-                console.log($scope.dataList[x][y]);                           
-            }
-        }   
-    }
-    
-    
-    Date.prototype.yyyymmdd = function() {
-        var yyyy = this.getFullYear().toString();
-        var mm = (this.getMonth() + 1).toString(); // getMonth() is
-        // zero-based
-        var dd = this.getDate().toString();
-        return (dd[1] ? dd : "0" + dd[0]) + "."
-                + (mm[1] ? mm : "0" + mm[0]) + "." + yyyy; // padding
-    };
-
-    
-    $scope.updateDate = function() {
-        $scope.dateList = [];
-        
-        var von = document.getElementById("von").value;
-        var bis = document.getElementById("bis").value;
-        var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-        var firstDate = new Date(von);
-        var secondDate = new Date(bis);
-        var dayz = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-        var day1 = new Date(firstDate.getFullYear(),firstDate.getMonth(), firstDate.getDate()+ i);
-        var counter = 0;
-
-        if (dayz == 11) {
-            $scope.datewrong = false;
-            for ( var i = 0; i <= dayz; i++) {
-
-                if (counter == 5) {
-                    i = i + 1;
-                    counter = 0;
-                } else {
-                    counter++;
-                    var day1 = new Date(firstDate.getFullYear(),
-                            firstDate.getMonth(), firstDate.getDate()
-                                    + i)
-
-                    $scope.dateList.push(day1.yyyymmdd());
-                }
-            }
-        } else {
-            $scope.datewrong = true;
-            return;
-        }
-        $scope.dataList = new Array($scope.dateList.length);
-        $scope.generateArray();
-    }
     
 }]);
