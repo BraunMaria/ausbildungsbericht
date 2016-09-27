@@ -161,7 +161,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         $scope.woche = $scope.week;
         $scope.abteilung = $scope.selectedAbteilung;
         $scope.name = $scope.fullname;
-        console.log(typeof $scope.ab);
         $scope.from = $scope.ab.yyyymmdd();
         $scope.till = $scope.bis.yyyymmdd();
         if ($scope.btt) {
@@ -372,11 +371,10 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                      $scope.fullname = new_array[1];
                      $scope.$apply();
                   break;
-                  case "abjah":
+                  case "abjahr":
                      $scope.ab_jahr = "";
                      $scope.ab_jahr = parseInt(new_array[2]);
                      $scope.$apply();
-                     console.log("abjahr");
                   break;
                   case "abteilung":
                      if ($scope.abteilungen.length >1) {
@@ -392,7 +390,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                   case "nachweisnr":
                      $scope.ab_nw = "";
                      $scope.ab_nw = parseInt(new_array[1]);
-                     console.log("nachweisnummer");
                      $scope.$apply();
                   break;
                   case "woche":
@@ -432,31 +429,45 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       
    }
    
-   $scope.deleteDbTable = function(table) {
+   $scope.deleteDbTable = function(name, jahr, nummer) {
 			
       if (confirm('Wirklich löschen?')) {
-         $.each($('.datadb'), function( index, value ) {
-            if ($('#db'+index).attr('class') == "datadb ng-binding ng-scope active") {
-               dataToLoad = index;
-            }
-         });
       
-         var key = $scope.planungen[dataToLoad];
-         key = key.replace(/\"/g, "");
-         
+         var key = name + " " + jahr + " " + nummer;
+         console.log(key);
          console.log('attempting to delete data to redis with following json:\n');
          
          jQuery.ajax({
-            url: 'dbconnection.php',
+            url: 'deleteData.php',
             type: 'post',
             data: {
                delkey: key
             },
-            success: function(){
-               $scope.generateInitialList();
-               $scope.showupload = false; 
-               $scope.showtable = false;
+            success: function(response){
+               if (jahr == 1) {
+                  for(var f=0 ; f<$scope.ausbildungsjahr1; f++){
+                     if ($scope.ausbildungsjahr1[f] == nummer) {
+                        $scope.ausbildungsjahr1.splice(f, 1);
+                     }
+                  }
+               }
+               if (jahr == 2) {
+                  for(var y=0 ; y<$scope.ausbildungsjahr2; y++){
+                     if ($scope.ausbildungsjahr2[y] == nummer) {
+                        $scope.ausbildungsjahr2.splice(y, 1);
+                     }
+                  }
+               }
+               if (jahr == 3) {
+                  for(var p=0 ; p<$scope.ausbildungsjahr2; p++){
+                     if ($scope.ausbildungsjahr3[p] == nummer) {
+                        $scope.ausbildungsjahr3.splice(p, 1);
+                     }
+                  }
+               }
+               $scope.fetchBerichtshefte($scope.entername);
                $scope.$apply();
+               console.log("wurde gelöscht");
             }
          });
       };

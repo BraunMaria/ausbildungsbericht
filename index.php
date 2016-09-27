@@ -26,15 +26,15 @@
             </div>
 			<div class="col-xs-4">
 				<span>1.tes Ausbildungsjahr</span>
-				<div id="contentarea" class="margin-top-md" ><p ng-repeat="berichtsheftab1 in ausbildungsjahr1 track by $index" id="db1{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab1}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable();"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 1, berichtsheftab1 ); " style="width: 30px; height: 30px"></img></p></div>
+				<div id="contentarea" class="margin-top-md" ><p ng-repeat="berichtsheftab1 in ausbildungsjahr1 track by $index" id="db1{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab1}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable(entername, 1, berichtsheftab1);"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 1, berichtsheftab1 ); " style="width: 30px; height: 30px"></img></p></div>
 			</div>
 			<div class="col-xs-4">
 				<span>2.tes Ausbildungsjahr</span>
-				<div id="contentarea"><p ng-repeat="berichtsheftab2 in ausbildungsjahr2 track by $index" id="db2{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab2}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable();"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 2, berichtsheftab1);" style="width: 30px; height: 30px"></img></p></div>
+				<div id="contentarea"><p ng-repeat="berichtsheftab2 in ausbildungsjahr2 track by $index" id="db2{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab2}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable(entername, 2, berichtsheftab2);"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 2, berichtsheftab2);" style="width: 30px; height: 30px"></img></p></div>
 			</div>
 			<div class="col-xs-4">
 				<span>3.tes Ausbildungsjahr</span>
-				<div id="contentarea"><p ng-repeat="berichtsheftab3 in ausbildungsjahr3 track by $index" id="db3{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab3}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable();"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 2, berichtsheftab1);" style="width: 30px; height: 30px"></img></p></div>
+				<div id="contentarea"><p ng-repeat="berichtsheftab3 in ausbildungsjahr3 track by $index" id="db3{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab3}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable(entername, 3, berichtsheftab3);"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 3, berichtsheftab3);" style="width: 30px; height: 30px"></img></p></div>
 			</div>
         </div>
 		<?php include "berichtsheft.php" ?>
