@@ -351,10 +351,9 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
             for(var i = 0; i < str_array.length; i++) {
                var x = str_array[i].replace(/\"/g, "");
                var new_array = x.split(':');
-              
                var sw = new_array[0]
                var scw = sw.substr(1, sw.length-2);
-               console.log(sw);
+               
                switch(scw){
                   case "datevon":
                      var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
@@ -369,39 +368,49 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                      $scope.$apply();
                   break;
                   case "name":
+                     $scope.name = "";
                      $scope.fullname = new_array[1];
                      $scope.$apply();
                   break;
                   case "abjah":
+                     $scope.ab_jahr = "";
                      $scope.ab_jahr = parseInt(new_array[2]);
                      $scope.$apply();
                      console.log("abjahr");
                   break;
                   case "abteilung":
-                     for ( var i = 0; i < $scope.abteilungen.length; i++) {
-                        if ($scope.abteilungen[i] == new_array[1]) {
-                           $scope.selectedAbteilung = $scope.abteilungen[i]
+                     if ($scope.abteilungen.length >1) {
+                        $scope.selectedAbteilung = $scope.abteilungen[0];
+                     }
+                     for ( var z = 0; z < $scope.abteilungen.length; z++) {
+                        if ($scope.abteilungen[z] == new_array[1]) {
+                           $scope.selectedAbteilung = $scope.abteilungen[z]
                         };
                      };
                      $scope.$apply();
                   break;
                   case "nachweisnr":
+                     $scope.ab_nw = "";
                      $scope.ab_nw = parseInt(new_array[1]);
                      console.log("nachweisnummer");
                      $scope.$apply();
                   break;
                   case "woche":
+                     $scope.week = ""
                      $scope.week = parseInt(new_array[1]);
                      $scope.$apply();
                   break;
                   case "taetigkeiten":
+                     $scope.btt = "";
                      $scope.btt = new_array[1];
                   break;
                   case "taetigkeitenstunden":
-                     $scope.bbthour = new_array[1];
+                     $scope.btthour = "";
+                     $scope.btthour = new_array[1];
                      $scope.$apply();
                   break;
                   case "arbeitsvorgang":
+                     $scope.abvorgang = "";
                      $scope.abvorgang = new_array[1];
                      $scope.$apply();
                   break;
@@ -414,13 +423,51 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                      $scope.schulehour = new_array[1];
                      
                      $scope.$apply();
-                  break;
                }
             }
+            $scope.saveFileData();
             $scope.$apply();
             $scope.showtable=true;
          }});
       
    }
+   
+   $scope.deleteDbTable = function(table) {
+			
+      if (confirm('Wirklich löschen?')) {
+         $.each($('.datadb'), function( index, value ) {
+            if ($('#db'+index).attr('class') == "datadb ng-binding ng-scope active") {
+               dataToLoad = index;
+            }
+         });
+      
+         var key = $scope.planungen[dataToLoad];
+         key = key.replace(/\"/g, "");
+         
+         console.log('attempting to delete data to redis with following json:\n');
+         
+         jQuery.ajax({
+            url: 'dbconnection.php',
+            type: 'post',
+            data: {
+               delkey: key
+            },
+            success: function(){
+               $scope.generateInitialList();
+               $scope.showupload = false; 
+               $scope.showtable = false;
+               $scope.$apply();
+            }
+         });
+      };
+   }
+   
+   Date.prototype.yyyymmdd = function() {
+      var yyyy = this.getFullYear().toString();
+      var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
+      var dd = this.getDate().toString();
+      return (dd[1] ? dd : "0" + dd[0]) + "."
+              + (mm[1] ? mm : "0" + mm[0]) + "." + yyyy;
+   };
     
 }]);
