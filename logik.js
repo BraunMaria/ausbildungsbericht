@@ -19,7 +19,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.ausbildungsjahr2 = [];
     $scope.ausbildungsjahr3 = [];
     
-    $scope.init = function(){
+    $scope.newBerichtsheft = function(){
        $scope.week = $scope.getweekNumber($scope.today);
         $scope.getWeekDates($scope.today);
         $scope.ab_nw = $scope.nachweisnumber();
@@ -236,19 +236,19 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       var jahr = $scope.ab_jahr;
       var abteilung = $scope.selectedAbteilung;
       var ab_nw = $scope.ab_nw;
-      var jsonst = '{"berichtsheft" : ['+
-      '{"name":'+name+
-      '"datevon":' +von+
-      '"datebis":' +bis+
-      '"abjahr:":' +jahr+
-      '"abteilung":' + abteilung+
-      '"nachweisnr":' + ab_nw+
-      '"woche":' + $scope.week+
-      '"taetigkeiten":' + $scope.btt+
-      '"taetigkeitenstunden":' + $scope.btthour+
-      '"arbeitsvorgang":' + $scope.abvorgang+
-      '"schule":' + $scope.schule+
-      '"schulehour":' + $scope.schulehour+
+      var jsonst = '{['+
+      '{"name":'+name+ ";" +
+      '"datevon":' +von+ ";" +
+      '"datebis":' +bis+ ";" +
+      '"abjahr:":' +jahr+ ";" +
+      '"abteilung":' + abteilung+ ";" +
+      '"nachweisnr":' + ab_nw+ ";" +
+      '"woche":' + $scope.week+ ";" +
+      '"taetigkeiten":' + $scope.btt+ ";" +
+      '"taetigkeitenstunden":' + $scope.btthour+ ";" +
+      '"arbeitsvorgang":' + $scope.abvorgang+ ";" +
+      '"schule":' + $scope.schule+ ";" +
+      '"schulehour":' + $scope.schulehour+ ";" +
       ']}'
       
       //var jsonstring = "";
@@ -265,8 +265,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       //jsonstring = jsonstring.concat("schule:" + $scope.schule+";");
       //jsonstring = jsonstring.concat("schulehour:" + $scope.schulehour);
       jsonstring = JSON.stringify(jsonst)
-      console.log(jsonstring);
-      return jsonst;
+      
+      return jsonstring;
       };
     
       $scope.fetchBerichtshefte = function(key) {
@@ -278,10 +278,11 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                     aktion: "getAllKeys"
 			    },
             success: function(response){
-               $scope.berichtsheftearray = [];
+               $scope.ausbildungsjahr1 = [];
+               $scope.ausbildungsjahr2 = [];
+               $scope.ausbildungsjahr3 = [];
                var raw = response.substr(1, response.length-2);
 					var str_array = raw.split(',');
-
 					for(var i = 0; i < str_array.length; i++) {
 						var x = str_array[i].replace(/\"/g, "");
                         var nachweis = x[x.length-1];
@@ -311,10 +312,9 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       }
       
       $scope.saveDataToDb = function() {
-			
+               
 				var json = $scope.convertDataIntoJSON();
                 var mykey = $scope.fullname + " " + $scope.ab_jahr + " " + $scope.ab_nw;;
-				
 				console.log('attempting to save data to redis with following json:\n');
 				
 				jQuery.ajax({
@@ -336,7 +336,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         
    $scope.getDatafromDB = function(name, jahr, nummer){
       var key = name + " " + jahr + " " + nummer;
-      console.log(key);
       
       jQuery.ajax({
 			    url: 'getData.php',
@@ -345,58 +344,64 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
 			    	loadkey: key,
 			    },
 			    success: function(response){
-                  console.log(response);
 			    	var str_array = response.split(';');
-					//for(var i = 0; i < str_array.length; i++) {
-					//	var x = str_array[i].split(":");
-					//	var sw = x[0];
-					//	switch(sw){
-					//		case "datevon":
-					//			
-					//			$scope.date_von = new Date(x[1]);
-					//			document.getElementById("von").value = $scope.date_von;
-					//			$scope.$apply();
-					//		break;
-					//		case "datebis":
-					//			$scope.date_bis = new Date(x[1]);
-					//			document.getElementById("bis").value = $scope.date_bis;
-					//			$scope.$apply();
-					//		break;
-					//		case "name":
-					//			$scope.name = x[1];
-					//			$scope.$apply();
-					//		break;
-					//		case "ea":
-					//			$scope.generateArray();
-					//			$scope.updateDate();
-					//			$scope.showtable=true;
-					//			$scope.ea = x[1];
-					//			$scope.$apply();
-					//		break;
-					//		case "rv":
-					//			$scope.rv = x[1];
-					//			$scope.$apply();
-					//		break;
-					//		case "userList":
-					//			var csla = x[1].split(",");
-					//			
-					//			$scope.userList = csla;
-					//			$scope.$apply();
-					//		break;
-					//		case "dataList":
-					//			var csla = x[1].split(",");
-					//			var counter = 0;
-					//			for (var tage=0;tage<$scope.dateList.length; tage++) {
-					//				for(var y=0;y<$scope.userList.length; y++) {
-					//					document.getElementById(""+tage+y).value = csla[counter];
-					//					counter++;
-					//				}
-					//			}
-					//			$scope.updateDate();
-					//			$scope.$apply();
-					//		break;
-					//	}
-					//}
+                    $scope.fullname = "test";
+                    console.log("Stringarray: "+str_array)
+					for(var i = 0; i < str_array.length; i++) {
+						var x = str_array[i].replace(/\"/g, "");
+                        
+                        console.log("x: "+x);
+                        var new_array = x.split(':');
+                        console.log(new_array);
+						var sw = new_array[0];
+                        console.log("sw: "+sw);
+						switch(sw){
+							case "datevon":
+								
+								$scope.date_von = new Date(x[1]);
+								document.getElementById("von").value = $scope.date_von;
+								$scope.$apply();
+							break;
+							case "datebis":
+								$scope.date_bis = new Date(x[1]);
+								document.getElementById("bis").value = $scope.date_bis;
+								$scope.$apply();
+							break;
+							case "name":
+								$scope.name = x[1];
+								$scope.$apply();
+							break;
+							case "ea":
+								$scope.generateArray();
+								$scope.updateDate();
+								$scope.showtable=true;
+								$scope.ea = x[1];
+								$scope.$apply();
+							break;
+							case "rv":
+								$scope.rv = x[1];
+								$scope.$apply();
+							break;
+							case "userList":
+								var csla = x[1].split(",");
+								
+								$scope.userList = csla;
+								$scope.$apply();
+							break;
+							case "dataList":
+								var csla = x[1].split(",");
+								var counter = 0;
+								for (var tage=0;tage<$scope.dateList.length; tage++) {
+									for(var y=0;y<$scope.userList.length; y++) {
+										document.getElementById(""+tage+y).value = csla[counter];
+										counter++;
+									}
+								}
+								$scope.updateDate();
+								$scope.$apply();
+							break;
+						}
+					}
 					$scope.$apply();
 					$scope.showtable=true;
 			    }});

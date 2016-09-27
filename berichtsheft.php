@@ -14,10 +14,9 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script language="javascript" type="text/javascript" src="logik.js"></script>
 <link rel="stylesheet" href="styles.css">
-<h1> Berichtsheft</h1>
 </head>
 <body ng-controller="MainCtrl" data-ng-init="init()">
-    <div class="container-fluid margin-top-xl greyblock" ng-app="">
+    <div class="container-fluid berichtsheft margin-top-xl greyblock" ng-app="">
 		<? phpinfo() ?>
 		<div class="row">
 			<div class="left-data-block col-xs-12 col-md-7">

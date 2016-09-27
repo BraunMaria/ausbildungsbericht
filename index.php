@@ -16,18 +16,17 @@
 </head>
 <body ng-controller="MainCtrl">
     <div class="container-fluid margin-top-xl" ng-app="">
-		
 		<div class="row">
             <div class="col-xs-12 from-group">
                 <input class="form-control" ng-model="entername" value="test" name="entername" id="entername" type="text" />
             </div>
             <div class= "col-xs-12">
                 <button class="button-add"  ng-click="fetchBerichtshefte(entername)" >Berichtshefte anzeigen</button>
-                <button class="button-add"  onclick="location.href='berichtsheft.php'" >Neues Berichtsheft anlegen</button>
+                <button class="button-add"  ng-click = "newBerichtsheft()" >Neues Berichtsheft anlegen</button>
             </div>
 			<div class="col-xs-4">
 				<span>1.tes Ausbildungsjahr</span>
-				<div id="contentarea" class="margin-top-md" ><p ng-repeat="berichtsheftab1 in ausbildungsjahr1 track by $index" id="db1{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab1}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable();"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 1, berichtsheftab1 );" style="width: 30px; height: 30px"></img></p></div>
+				<div id="contentarea" class="margin-top-md" ><p ng-repeat="berichtsheftab1 in ausbildungsjahr1 track by $index" id="db1{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab1}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable();"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 1, berichtsheftab1 ); " style="width: 30px; height: 30px"></img></p></div>
 			</div>
 			<div class="col-xs-4">
 				<span>2.tes Ausbildungsjahr</span>
@@ -38,6 +37,7 @@
 				<div id="contentarea"><p ng-repeat="berichtsheftab3 in ausbildungsjahr3 track by $index" id="db3{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab3}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable();"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 2, berichtsheftab1);" style="width: 30px; height: 30px"></img></p></div>
 			</div>
         </div>
+		<?php include "berichtsheft.php" ?>
     </div>
     
 </bod>
