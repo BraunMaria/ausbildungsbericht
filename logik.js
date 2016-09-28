@@ -23,7 +23,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       $scope.getWeekDates($scope.today);
       $scope.ab_nw = $scope.nachweisnumber();
       $scope.ab_jahr = $scope.ausbildungsjahr(2016);
-      $scope.fullname = "Maria Braun";
+      $scope.fullname = $scope.entername;
       $scope.btt = "";
       $scope.btthour = "";
       $scope.abvorgang = "";
@@ -35,7 +35,15 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       }
       $scope.saveFileData();
    };
-  
+   
+   $scope.clearAll = function() {
+      $scope.btt= "";
+      $scope.btthour = "";
+      $scope.abvorgang = "";
+      $scope.schule = "";
+      $scope.schulehour = "";
+   };
+   
     //Funktion um Abteilungen im Dropdown hinzuzufügen
    $scope.delAbteilung = function(abteilung) {
       $scope.abteilungnonexistent = true;
@@ -264,7 +272,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      };
    
      $scope.fetchBerichtshefte = function(key) {
-      if (key.length>1) {
+      if (key) {
         $.ajax({    
          url: 'getKeys.php',
              type: 'post',
@@ -276,22 +284,33 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
             $scope.ausbildungsjahr1 = [];
             $scope.ausbildungsjahr2 = [];
             $scope.ausbildungsjahr3 = [];
+            var keinname = true;
             var raw = response.substr(1, response.length-2);
                  var str_array = raw.split(',');
                  for(var i = 0; i < str_array.length; i++) {
                      var x = str_array[i].replace(/\"/g, "");
                      var nachweis = x[x.length-1];
                      var jahrausbildung = x[x.length-3];
-                     if (jahrausbildung == 3) {
-                         $scope.ausbildungsjahr3.push(nachweis);
-                         sort($scope.ausbildungsjahr3);
-                     } else if(jahrausbildung == 2){
-                        $scope.ausbildungsjahr2.push(nachweis);
-                     }
-                     else if(jahrausbildung == 1){
-                        $scope.ausbildungsjahr1.push(nachweis);
+                     var name = x.substr(0, x.length-4);
+                     if (name == key) {
+                           if (jahrausbildung == 3) {
+                            $scope.ausbildungsjahr3.push(nachweis);
+                            $scope.ausbildungsjahr3.sort();
+                        } else if(jahrausbildung == 2){
+                           $scope.ausbildungsjahr2.push(nachweis);
+                           $scope.ausbildungsjahr2.sort();
+                        }
+                        else if(jahrausbildung == 1){
+                           $scope.ausbildungsjahr1.push(nachweis);
+                           $scope.ausbildungsjahr1.sort();
+                        }
+                        var keinname = false;
                      }
                      
+                     
+                 }
+                 if (keinname) {
+                    alert("Keine Berichtshefte unter diesem Namen gespeichert");
                  }
                  $scope.berichtshefte  = str_array;
                  $scope.$apply();
@@ -305,6 +324,9 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      
       });
       }
+      else(
+         alert("Bitte geben Sie Ihren Namen ein")
+      )
    }
       
    $scope.saveDataToDb = function() {
@@ -312,7 +334,10 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       var json = $scope.convertDataIntoJSON();
       var mykey = $scope.fullname + " " + $scope.ab_jahr + " " + $scope.ab_nw;;
       console.log('attempting to save data to redis with following json:\n');
-      
+      if ( !$scope.fullname || !$scope.ab_jahr || !$scope.ab_nw) {
+        alert("Bitte fülle Name, Nachweisnummer und Ausbildungsjahr aus");
+      }
+      else{
       jQuery.ajax({
           url: 'saveData.php',
           type: 'post',
@@ -321,13 +346,17 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
               key: mykey,
           },
           success: function(){
-           console.log("erfolgreich gespeichert")
+            alert("Das Berichtsheft wurde erfolgreich gespeichert");
+            $scope.fetchBerichtshefte($scope.entername);
+            console.log("erfolgreich gespeichert")
+            $scope.clearAll();
           },
           error: function() {
-              console.log("fehlgeschlagen");
+            console.log("fehlgeschlagen");
           }
           
       });
+      }
    };
         
    $scope.getDatafromDB = function(name, jahr, nummer){

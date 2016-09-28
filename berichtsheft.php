@@ -77,6 +77,10 @@
 				<button  class="button-add" ng-click= "fillUrlaub()">Urlaub</button>
 				<button  class="button-add" ng-click= "fillSchule()">Berufsschule</button>
 			</div>
+			<div class="col-xs-12 buttons row-centered margin-top-md">
+				<button class="button-add" ng-click= "saveDataToDb()" ng-hide="content" href="#">Speichern</button>
+				<button class="button-add" ng-click = "drucken()" ><a href="javascript:window.print()">Drucken</a></button>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
@@ -178,7 +182,6 @@
 				<div class="col-xs-12 margin-top-md buttons">
 					<button class="button-add" ng-click= "saveDataToDb()" ng-hide="content" href="#">Speichern</button>
 					<button class="button-add" ng-click = "drucken()" ><a href="javascript:window.print()">Drucken</a></button>
-					<button class="button-add" ng-click= "fetchberichtshefte(fullname)" onclick="location.href='index.html'" >Berichtshefte anzeigen</button>
 				</div>
 			</div>
 		</div>
