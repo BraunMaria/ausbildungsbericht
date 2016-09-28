@@ -55,12 +55,12 @@
 				<div class="col-xs-12 no-padding azubi-nachw">
 					<label for="ab_nw">Ausbildungsnachweis Nr.</label>
 					<span ng-hide="!data">{{nachweisnr}}</span>
-					<input ng-hide="data" ng-model="ab_nw" class="input form-control" name="ab_nw" id="ab_nw" type="number"/>
+					<input ng-hide="data" ng-model="ab_nw" string-to-number class="input form-control" name="ab_nw" id="ab_nw" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-sm no-padding azubi_jahr">
 					<label for="ab_jahr">Ausbildungsjahr: </label>
 					<span ng-hide="!data">{{jahr}}</span>
-					<input ng-hide="data" ng-model="ab_jahr" class="input form-control" name="ab_jahr" id="ab_jahr" type="number"/>
+					<input ng-hide="data" ng-model="ab_jahr" string-to-number class="input form-control" name="ab_jahr" id="ab_jahr" type="number"/>
 				</div>
 				<div class="col-xs-12 margin-top-xxl no-padding week">
 					<label for="week">Woche: </label>

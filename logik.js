@@ -4,6 +4,11 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
    $scope.abteilungen = [ "E-Commerce", "Einkauf", "Service", "Buchhaltung", "Personalwesen",
 				"Marketing", "Logistik", "Export", "EDV-Host", "IT-Netzwerke", "Grafik" ]
     $scope.btkcontent = [];
+    $scope.taetigkeitenarray = [];
+    $scope.schulearray = [];
+    $scope.arbeitsvorgangarray = [];
+    $scope.schulstundenarray = [];
+    $scope.hourarray = [];
     $scope.btkhour = [];
     $scope.tgk = [];
     $scope.bs = [];
@@ -18,19 +23,24 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.ausbildungsjahr1 = [];
     $scope.ausbildungsjahr2 = [];
     $scope.ausbildungsjahr3 = [];
-    
-    $scope.newBerichtsheft = function(){
-       $scope.week = $scope.getweekNumber($scope.today);
-        $scope.getWeekDates($scope.today);
-        $scope.ab_nw = $scope.nachweisnumber();
-        $scope.ab_jahr = $scope.ausbildungsjahr(2016);
-        $scope.fullname = "Maria Braun";
-        
-        if ($scope.abteilungen.length >= 1) {
-            $scope.selectedAbteilung = $scope.abteilungen[0];
-        }
-        $scope.saveFileData();
-    };
+
+   $scope.newBerichtsheft = function(){
+      $scope.week = $scope.getweekNumber($scope.today);
+      $scope.getWeekDates($scope.today);
+      $scope.ab_nw = $scope.nachweisnumber();
+      $scope.ab_jahr = $scope.ausbildungsjahr(2016);
+      $scope.fullname = "Maria Braun";
+      $scope.btt = "";
+      $scope.btthour = "";
+      $scope.abvorgang = "";
+      $scope.schule = "";
+      $scope.schulehour = "";
+      
+      if ($scope.abteilungen.length >= 1) {
+         $scope.selectedAbteilung = $scope.abteilungen[0];
+      }
+      $scope.saveFileData();
+   };
   
     //Funktion um Abteilungen im Dropdown hinzuzufügen
     $scope.delAbteilung = function(abteilung) {
@@ -292,11 +302,10 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                         } else if(jahrausbildung == 2){
                            $scope.ausbildungsjahr2.push(nachweis);
                         }
-                        else{
+                        else if(jahrausbildung == 1){
                            $scope.ausbildungsjahr1.push(nachweis);
                         }
                         
-						$scope.berichtsheftearray.push(x);
 					}
 					$scope.berichtshefte  = str_array;
 					$scope.$apply();
@@ -346,80 +355,110 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
          success: function(response){
             var cutresponse = response.substr(4, response.length-2);
             var str_array = cutresponse.split(';');
-            
             for(var i = 0; i < str_array.length; i++) {
                var x = str_array[i].replace(/\"/g, "");
                var new_array = x.split(':');
                var sw = new_array[0]
                var scw = sw.substr(1, sw.length-2);
-               
-               switch(scw){
-                  case "datevon":
-                     var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
-                     $scope.date_von = new Date(datestring);
-                     $scope.ab = $scope.date_von;
-                     $scope.$apply();
-                  break;
-                  case "datebis":
-                     var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
-                     $scope.date_bis = new Date(datestring);
-                     $scope.bis = $scope.date_bis;
-                     $scope.$apply();
-                  break;
-                  case "name":
-                     $scope.name = "";
-                     $scope.fullname = new_array[1];
-                     $scope.$apply();
-                  break;
-                  case "abjahr":
-                     $scope.ab_jahr = "";
-                     $scope.ab_jahr = parseInt(new_array[2]);
-                     $scope.$apply();
-                  break;
-                  case "abteilung":
-                     if ($scope.abteilungen.length >1) {
-                        $scope.selectedAbteilung = $scope.abteilungen[0];
-                     }
-                     for ( var z = 0; z < $scope.abteilungen.length; z++) {
-                        if ($scope.abteilungen[z] == new_array[1]) {
-                           $scope.selectedAbteilung = $scope.abteilungen[z]
+               if (new_array[1] != "undefined") {
+                  switch(scw){
+                     case "datevon":
+                        var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
+                        $scope.date_von = new Date(datestring);
+                        $scope.ab = $scope.date_von;
+                        $scope.$apply();
+                     break;
+                     case "datebis":
+                        var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
+                        $scope.date_bis = new Date(datestring);
+                        $scope.bis = $scope.date_bis;
+                        $scope.$apply();
+                     break;
+                     case "name":
+                        $scope.name = "";
+                        $scope.fullname = new_array[1];
+                        $scope.$apply();
+                     break;
+                     case "abjahr":
+                        $scope.ab_jahr = "";
+                        $scope.ab_jahr = parseInt(new_array[1]);
+                        $scope.$apply();
+                     break;
+                     case "abteilung":
+                        if ($scope.abteilungen.length >1) {
+                           $scope.selectedAbteilung = $scope.abteilungen[0];
+                        }
+                        for ( var z = 0; z < $scope.abteilungen.length; z++) {
+                           if ($scope.abteilungen[z] == new_array[1]) {
+                              $scope.selectedAbteilung = $scope.abteilungen[z]
+                           };
                         };
-                     };
-                     $scope.$apply();
-                  break;
-                  case "nachweisnr":
-                     $scope.ab_nw = "";
-                     $scope.ab_nw = parseInt(new_array[1]);
-                     $scope.$apply();
-                  break;
-                  case "woche":
-                     $scope.week = ""
-                     $scope.week = parseInt(new_array[1]);
-                     $scope.$apply();
-                  break;
-                  case "taetigkeiten":
-                     $scope.btt = "";
-                     $scope.btt = new_array[1];
-                  break;
-                  case "taetigkeitenstunden":
-                     $scope.btthour = "";
-                     $scope.btthour = new_array[1];
-                     $scope.$apply();
-                  break;
-                  case "arbeitsvorgang":
-                     $scope.abvorgang = "";
-                     $scope.abvorgang = new_array[1];
-                     $scope.$apply();
-                  break;
-                  case "schule":
-                     $scope.schule = new_array[1];
-                     
-                     $scope.$apply();
-                  break;
-                  case "schulehour":
-                     $scope.schulehour = new_array[1];
-                     
-                     $scope.$apply();
+                        $scope.$apply();
+                     break;
+                     case "nachweisnr":
+                        $scope.ab_nw = "";
+                        $scope.ab_nw = parseInt(new_array[1]);
+                        $scope.$apply();
+                     break;
+                     case "woche":
+                        $scope.week = ""
+                        $scope.week = parseInt(new_array[1]);
+                        $scope.$apply();
+                     break;
+                     case "taetigkeiten":
+                        $scope.btt = "";
+                        for (var n = 1; n<new_array.length; n++) {
+                           $scope.taetigkeitenarray = new_array[n].split("\\n");
+                           for(var r = 0; r < $scope.taetigkeitenarray.length; r++){
+                              $scope.btt = $scope.btt + $scope.taetigkeitenarray[r] + '\n';
+                           }
+                        }
+                     break;
+                     case "taetigkeitenstunden":
+                        $scope.btthour = "";
+                        for (var v = 1; v<new_array.length; v++) {
+                           $scope.hourarray = new_array[v].split("\\n");
+                           for(var r = 0; r < $scope.hourarray.length; r++){
+                              $scope.btthour = $scope.btthour + $scope.hourarray[r] + '\n';
+                           }
+                        }
+                        $scope.$apply();
+                     break;
+                     case "arbeitsvorgang":
+                        $scope.abvorgang = "";
+                        for (var n = 1; n<new_array.length; n++) {
+                           $scope.arbeitsvorgangarray = new_array[n].split("\\n");
+                           for(var r = 0; r < $scope.arbeitsvorgangarray.length; r++){
+                              $scope.abvorgang = $scope.abvorgang + $scope.arbeitsvorgangarray[r] + '\n';
+                           }
+                        }
+                        $scope.$apply();
+                     break;
+                     case "schule":
+                        $scope.schule = "";
+                        $scope.schule = new_array[1];
+                        for (var n = 1; n<new_array.length; n++) {
+                           
+                           console.log(new_array[n]);
+                           $scope.schulearray = new_array[n].split("\\n");
+                           for(var r = 0; r < $scope.schulearray.length; r++){
+                              $scope.schule = $scope.schule + $scope.schulearray[r] + '\n';
+                           }
+                        }
+                        $scope.$apply();
+                     break;
+                     case "schulehour":
+                        $scope.schulehour = "";
+                        for (var n = 1; n<new_array.length; n++) {
+                           $scope.schulstundenarray = new_array[n].split("\\n");
+                           for(var r = 0; r < $scope.schulstundenarray.length; r++){
+                              
+                              $scope.schulehour = $scope.schulehour + $scope.schulstundenarray[r] + '\n';
+                           }
+                        }
+                        
+                        $scope.$apply();
+                  }
                }
             }
             $scope.saveFileData();
@@ -434,7 +473,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       if (confirm('Wirklich löschen?')) {
       
          var key = name + " " + jahr + " " + nummer;
-         console.log(key);
          console.log('attempting to delete data to redis with following json:\n');
          
          jQuery.ajax({
