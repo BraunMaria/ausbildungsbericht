@@ -15,8 +15,8 @@
 <h1> Berichtsheft</h1>
 </head>
 <body ng-controller="MainCtrl">
-    <div class="container-fluid margin-top-xl" ng-app="">
-		<div class="row">
+    <div class="container-fluid margin-top-xl " ng-app="">
+		<div class="row hidden-print">
             <div class="col-xs-12 from-group">
                 <input class="form-control" ng-model="entername" value="test" name="entername" id="entername" type="text" />
             </div>

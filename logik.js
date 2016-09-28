@@ -10,16 +10,10 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
     $scope.schulstundenarray = [];
     $scope.hourarray = [];
     $scope.btkhour = [];
-    $scope.tgk = [];
-    $scope.bs = [];
     $scope.faecher = ["IT-Systeme: ", "Anwendungsentwicklung: ", "Vernetzte Systeme: ", "BWP: ", "Sozialkunde: ", "Englisch: "];
-    $scope.name = "";
-    $scope.company = "";
-    $scope.field = "";
     $scope.weeknumber;
     $scope.today = new Date();
     $scope.count = 0;
-    $scope.berichtsheftearray = [];
     $scope.ausbildungsjahr1 = [];
     $scope.ausbildungsjahr2 = [];
     $scope.ausbildungsjahr3 = [];
@@ -231,10 +225,14 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       $scope.schoolhour = $scope.schulehour !== undefined ? $scope.schulehour.split('\n') : "0";
       var hours = 0;
       for ( var i = 0; i < $scope.btkhour.length; i++){
-         hours = hours + parseInt($scope.btkhour[i]);
+         if ($scope.btkhour[i] != "") {
+            hours = hours + parseInt($scope.btkhour[i]);
+         }
       }
-      for ( var i = 0; i < $scope.schoolhour.length; i++){
-         hours = hours + parseInt($scope.schoolhour[i]);
+      for ( var i = 0; i < $scope.schoolhour.length-1; i++){
+         if ($scope.schoolhour[i] != "") {
+            hours = hours + parseInt($scope.schoolhour[i]);
+         }
       }
       $scope.completehour = hours;
     };
@@ -418,8 +416,12 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                         $scope.btthour = "";
                         for (var v = 1; v<new_array.length; v++) {
                            $scope.hourarray = new_array[v].split("\\n");
-                           for(var r = 0; r < $scope.hourarray.length; r++){
-                              $scope.btthour = $scope.btthour + $scope.hourarray[r] + '\n';
+                           
+                           for(var r = 0; r < $scope.hourarray.length-1; r++){
+                              if ($scope.hourarray[r] != "") {
+                                $scope.btthour = $scope.btthour +  parseInt($scope.hourarray[r]) + '\n';
+                              }
+                              
                            }
                         }
                         $scope.$apply();
@@ -439,7 +441,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                         for (var n = 1; n<new_array.length-1; n++) {
                            $scope.schulearray = new_array[n].split("\\n");
                            for(var r = 0; r < $scope.schulearray.length; r++){
-                              if ($scope.schulearray[r]!= " ") {
+                              if ($scope.schulearray[r]!= "") {
                                 $scope.schule = $scope.schule + $scope.schulearray[r] + ":" + '\n';
                               }
                            }
@@ -450,9 +452,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                         $scope.schulehour = "";
                         for (var n = 1; n<new_array.length; n++) {
                            $scope.schulstundenarray = new_array[n].split("\\n");
-                           for(var r = 0; r < $scope.schulstundenarray.length; r++){
-                              
-                              $scope.schulehour = $scope.schulehour + $scope.schulstundenarray[r] + '\n';
+                           for(var r = 0; r < $scope.schulstundenarray.length-1; r++){
+                              $scope.schulehour = $scope.schulehour + parseInt($scope.schulstundenarray[r]) + '\n';
                            }
                         }
                         
@@ -460,6 +461,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                   }
                }
             }
+            $scope.calcHour(); 
             $scope.saveFileData();
             $scope.$apply();
             $scope.showtable=true;

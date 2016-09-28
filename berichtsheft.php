@@ -6,7 +6,6 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<link rel="stylesheet" type="text/css" media="print" href="print.css">
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -106,11 +105,9 @@
 							<tr>
 								<td>
 									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text" ng-hide="content" rows=18"></textarea>
-									<span class="t" ng-repeat="taetigkeit in btkcontent track by $index">{{bbt}}</span>
 								</td>
 								<td>
 									<textarea ng-model="btthour" name="bbthour" id="bbthour" class="conten-area" rows=18" ng-change="calcHour()"></textarea>
-									<span class="t" ng-repeat="taetigkeit in btkcontent track by $index">{{bbthour}}</span>
 								</td>
 							</tr>
 						</table>
