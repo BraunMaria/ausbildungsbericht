@@ -436,12 +436,12 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                      break;
                      case "schule":
                         $scope.schule = "";
-                        $scope.schule = new_array[1];
                         for (var n = 1; n<new_array.length; n++) {
                            
                            console.log(new_array[n]);
                            $scope.schulearray = new_array[n].split("\\n");
-                           for(var r = 0; r < $scope.schulearray.length; r++){
+                           console.log($scope.schulearray);
+                           for(var r = 1; r < $scope.schulearray.length; r++){
                               $scope.schule = $scope.schule + $scope.schulearray[r] + '\n';
                            }
                         }
