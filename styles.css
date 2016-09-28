@@ -54,6 +54,10 @@
     padding-left: 0px;
 }
 
+.form-control{
+    display: inline;
+}
+
 .logo{
     margin-top: 5px;
     margin-left: 10px;
@@ -298,6 +302,10 @@ li{
         display: none;
     }
     
+    
+    .verwaltung{
+        margin-left: 10px;
+    }
     .hidden-print{
         display: none;
     }

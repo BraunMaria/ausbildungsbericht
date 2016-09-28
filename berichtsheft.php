@@ -1,20 +1,5 @@
 <html ng-app="myApp">
-<head>
-<meta charset="utf-8" />
-<title>Berichtsheft</title>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script language="javascript" type="text/javascript" src="logik.js"></script>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body ng-controller="MainCtrl" data-ng-init="init()">
     <div class="container-fluid berichtsheft margin-top-xl greyblock" ng-app="">
 		<? phpinfo() ?>
 		<div class="row">
@@ -197,6 +182,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</body>    
+	</div>   
 </html>

@@ -264,7 +264,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      };
    
      $scope.fetchBerichtshefte = function(key) {
-      $.ajax({    
+      if (key.length>1) {
+        $.ajax({    
          url: 'getKeys.php',
              type: 'post',
              data: {
@@ -283,6 +284,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                      var jahrausbildung = x[x.length-3];
                      if (jahrausbildung == 3) {
                          $scope.ausbildungsjahr3.push(nachweis);
+                         sort($scope.ausbildungsjahr3);
                      } else if(jahrausbildung == 2){
                         $scope.ausbildungsjahr2.push(nachweis);
                      }
@@ -302,6 +304,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
          }
      
       });
+      }
    }
       
    $scope.saveDataToDb = function() {
