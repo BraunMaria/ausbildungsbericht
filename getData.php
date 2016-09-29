@@ -4,6 +4,7 @@ include"connect.php";
 
 if (!empty($_POST['loadkey'])) {
     $key = $_POST['loadkey'];
-    echo $redis->get($key);
+    $jsonData = $redis->get($key);
+    echo json_decode($jsonData, true , $depth = 512);
 }
 ?>

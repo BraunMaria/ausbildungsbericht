@@ -1,7 +1,6 @@
 <html ng-app="myApp">
 
-    <div class="container-fluid berichtsheft margin-top-xl greyblock" ng-app="">
-		<? phpinfo() ?>
+    <div class="container-fluid berichtsheft margin-top-xl greyblock" ng-app="" ng-hide ="!zeigeberichtsheft">
 		<div class="row">
 			<div class="left-data-block col-xs-12 col-md-7">
 				<div class="name from-group">
@@ -71,15 +70,16 @@
 				</div>
 			</div>
 		</div>
-		<div class = "row hidden-print">
+		<div class="row hidden-print">
 			<div class="col-xs-12 buttons row-centered margin-top-md">
-				<button  class="button-add" ng-click= "fillKrank()">Krank</button>
-				<button  class="button-add" ng-click= "fillUrlaub()">Urlaub</button>
-				<button  class="button-add" ng-click= "fillSchule()">Berufsschule</button>
+				<button  class="button-add" ng-click="fillKrank()">Krank</button>
+				<button  class="button-add" ng-click="fillUrlaub()">Urlaub</button>
+				<button  class="button-add" ng-click="fillSchule()">Berufsschule</button>
 			</div>
 			<div class="col-xs-12 buttons row-centered margin-top-md">
-				<button class="button-add" ng-click= "saveDataToDb()" ng-hide="content" href="#">Speichern</button>
-				<button class="button-add" ng-click = "drucken()" ><a href="javascript:window.print()">Drucken</a></button>
+				<button class="button-add" ng-click="saveDataToDb()" ng-hide ="content" href="#">Speichern</button>
+				<button class="button-add" ng-click="drucken()" ><a href ="javascript:window.print()">Drucken</a></button>
+				<button class="button-add" ng-click="convertDataIntoJSON()">JSON anzeigen</button>
 			</div>
 		</div>
 		<div class="row">

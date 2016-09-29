@@ -25,7 +25,7 @@
                 <button class="button-add"  ng-click = "newBerichtsheft()" >Neues Berichtsheft anlegen</button>
             </div>
 		</div>
-		<div class ="row hidden-print row-centered">
+		<div class ="row hidden-print row-centered" ng-hide="!anzeigen">
 			<div class="col-xs-4 margin-top-md">
 				<span><u>1.tes Ausbildungsjahr</u></span>
 				<div id="contentarea" class="margin-top-md" ><p ng-repeat="berichtsheftab1 in ausbildungsjahr1 track by $index" id="db1{{$index}}" class="datadb">Ausbildungsnachweis Nr {{berichtsheftab1}} <img src="bilder/delete.png" style="width: 30px; height: 30px; margin-left: 20px; margin-right: 20px;" ng-click="deleteDbTable(entername, 1, berichtsheftab1);"><img src="bilder/document_edit.png" ng-click="getDatafromDB(entername, 1, berichtsheftab1 ); " style="width: 30px; height: 30px"></img></p></div>
