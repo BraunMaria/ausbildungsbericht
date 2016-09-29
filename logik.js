@@ -176,12 +176,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
        $scope.name = $scope.fullname;
        $scope.from = $scope.ab.yyyymmdd();
        $scope.till = $scope.bis.yyyymmdd();
-       if ($scope.btt) {
-          $scope.btkcontent = $scope.btt.split('\n');
-       }
-       if ($scope.btthour) {
-           $scope.btkhour = $scope.btthour.split('\n');
-       }
        $scope.data = true;
        $scope.myValue = true;
    }
@@ -218,19 +212,9 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      }
    };
     
-    //Funktion zur Speicherung vom Betriebliche Tätigkeit und deren Stunden  
-   $scope.saveContent = function(){
-     if ($scope.bbt) {
-        $scope.btkcontent = $scope.bbt.split('\n');
-     }
-     if ($scope.bbthour) {
-        $scope.btkhour = $scope.bbthour.split('\n');
-     }
-       $scope.content = true;
-   };
-    
    $scope.calcHour = function(){
-     $scope.btkhour = $scope.btthour !== undefined ? $scope.btthour.split('\n') : "0";
+      console.log(typeof $scope.btthour);
+     $scope.btkhour = typeof $scope.btthour !== undefined ? $scope.btthour.split('\n') : "0";
      $scope.schoolhour = $scope.schulehour !== undefined ? $scope.schulehour.split('\n') : "0";
      var hours = 0;
      for ( var i = 0; i < $scope.btkhour.length; i++){
@@ -247,6 +231,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
    };
     
    $scope.convertDataIntoJSON = function() {
+      
       var json = {
          name: $scope.fullname,
          datevon: $scope.ab,
@@ -263,24 +248,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       };
       
       return json;
-      
-     //var jsonst = '{['+
-     //'{"name":'+name+ ";" +
-     //'"datevon":' +von+ ";" +
-     //'"datebis":' +bis+ ";" +
-     //'"abjahr":' +jahr+ ";" +
-     //'"abteilung":' + abteilung+ ";" +
-     //'"nachweisnr":' + ab_nw+ ";" +
-     //'"woche":' + $scope.week+ ";" +
-     //'"taetigkeiten":' + $scope.btt+ ";" +
-     //'"taetigkeitenstunden":' + $scope.btthour+ ";" +
-     //'"arbeitsvorgang":' + $scope.abvorgang+ ";" +
-     //'"schule":' + $scope.schule+ ";" +
-     //'"schulehour":' + $scope.schulehour+ ";" +
-     //']}'
-     //jsonstring = JSON.stringify(jsonst)
-     //
-     //return jsonstring;
      };
    
      $scope.fetchBerichtshefte = function(key) {
@@ -352,6 +319,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
             
       var json = $scope.convertDataIntoJSON();
       var mykey = $scope.fullname + " " + $scope.ab_jahr + " " + $scope.ab_nw;;
+      $scope.btthour = $scope.btthour !== undefined ? $scope.btthour : "0";
+      $scope.schoolhour = $scope.schulehour !== undefined ? $scope.schulehour : "0";
       console.log('attempting to save data to redis with following json:\n');
       if ( !$scope.fullname || !$scope.ab_jahr || !$scope.ab_nw) {
         alert("Bitte fülle Name, Nachweisnummer und Ausbildungsjahr aus");
@@ -388,118 +357,26 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       loadkey: key,
       },
       success: function(response){
-         console.log(response);
+         console.log(JSON.parse(response));
+         var antwort = JSON.parse(response);
          $scope.zeigeberichtsheft = true;
-         //var cutresponse = response.substr(4, response.length-2);
-         //var str_array = cutresponse.split(';');
-         //for(var i = 0; i < str_array.length; i++) {
-         //   var x = str_array[i].replace(/\"/g, "");
-         //   var new_array = x.split(':');
-         //   var sw = new_array[0]
-         //   var scw = sw.substr(1, sw.length-2);
-         //   if (new_array[1] != "undefined") {
-         //      switch(scw){
-         //         case "datevon":
-         //            var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
-         //            $scope.date_von = new Date(datestring);
-         //            $scope.ab = $scope.date_von;
-         //            $scope.$apply();
-         //         break;
-         //         case "datebis":
-         //            var datestring = new_array[1]+":"+new_array[2]+":"+new_array[3];
-         //            $scope.date_bis = new Date(datestring);
-         //            $scope.bis = $scope.date_bis;
-         //            $scope.$apply();
-         //         break;
-         //         case "name":
-         //            $scope.name = "";
-         //            $scope.fullname = new_array[1];
-         //            $scope.$apply();
-         //         break;
-         //         case "abjahr":
-         //            $scope.ab_jahr = "";
-         //            $scope.ab_jahr = parseInt(new_array[1]);
-         //            $scope.$apply();
-         //         break;
-         //         case "abteilung":
-         //            if ($scope.abteilungen.length >1) {
-         //               $scope.selectedAbteilung = $scope.abteilungen[0];
-         //            }
-         //            for ( var z = 0; z < $scope.abteilungen.length; z++) {
-         //               if ($scope.abteilungen[z] == new_array[1]) {
-         //                  $scope.selectedAbteilung = $scope.abteilungen[z]
-         //               };
-         //            };
-         //            $scope.$apply();
-         //         break;
-         //         case "nachweisnr":
-         //            $scope.ab_nw = "";
-         //            $scope.ab_nw = parseInt(new_array[1]);
-         //            $scope.$apply();
-         //         break;
-         //         case "woche":
-         //            $scope.week = ""
-         //            $scope.week = parseInt(new_array[1]);
-         //            $scope.$apply();
-         //         break;
-         //         case "taetigkeiten":
-         //            $scope.btt = "";
-         //            for (var n = 1; n<new_array.length; n++) {
-         //               $scope.taetigkeitenarray = new_array[n].split("\\n");
-         //               for(var r = 0; r < $scope.taetigkeitenarray.length; r++){
-         //                  $scope.btt = $scope.btt + $scope.taetigkeitenarray[r] + '\n';
-         //               }
-         //            }
-         //         break;
-         //         case "taetigkeitenstunden":
-         //            $scope.btthour = "";
-         //            for (var v = 1; v<new_array.length; v++) {
-         //               $scope.hourarray = new_array[v].split("\\n");
-         //               
-         //               for(var r = 0; r < $scope.hourarray.length-1; r++){
-         //                  if ($scope.hourarray[r] != "") {
-         //                    $scope.btthour = $scope.btthour +  parseInt($scope.hourarray[r]) + '\n';
-         //                  }
-         //                  
-         //               }
-         //            }
-         //            $scope.$apply();
-         //         break;
-         //         case "arbeitsvorgang":
-         //            $scope.abvorgang = "";
-         //            for (var n = 1; n<new_array.length; n++) {
-         //               $scope.arbeitsvorgangarray = new_array[n].split("\\n");
-         //               for(var r = 0; r < $scope.arbeitsvorgangarray.length; r++){
-         //                  $scope.abvorgang = $scope.abvorgang + $scope.arbeitsvorgangarray[r] + '\n';
-         //               }
-         //            }
-         //            $scope.$apply();
-         //         break;
-         //         case "schule":
-         //            $scope.schule = "";
-         //            for (var n = 1; n<new_array.length-1; n++) {
-         //               $scope.schulearray = new_array[n].split("\\n");
-         //               for(var r = 0; r < $scope.schulearray.length; r++){
-         //                  if ($scope.schulearray[r]!= "") {
-         //                    $scope.schule = $scope.schule + $scope.schulearray[r] + ":" + '\n';
-         //                  }
-         //               }
-         //            }
-         //            $scope.$apply();
-         //         break;
-         //         case "schulehour":
-         //            $scope.schulehour = "";
-         //            for (var n = 1; n<new_array.length; n++) {
-         //               $scope.schulstundenarray = new_array[n].split("\\n");
-         //               for(var r = 0; r < $scope.schulstundenarray.length-1; r++){
-         //                  $scope.schulehour = $scope.schulehour + parseInt($scope.schulstundenarray[r]) + '\n';
-         //               }
-         //            }
-         //            
-         //            $scope.$apply();
-         //      }
-         //   }
-         //}
+         console.log(antwort.name);
+         $scope.ab = new Date(antwort.datevon);
+         $scope.bis = new Date(antwort.datebis);
+         $scope.fullname = antwort.name;
+         $scope.ab_jahr = parseInt(antwort.abjahr);
+         for ( var z = 0; z < $scope.abteilungen.length; z++) {
+            if ($scope.abteilungen[z] == antwort.abteilung) {
+               $scope.selectedAbteilung = $scope.abteilungen[z]
+            };
+         }
+         $scope.ab_nw = parseInt(antwort.nachweisnr);
+         $scope.week = parseInt(antwort.woche);
+         $scope.btt = antwort.taetigkeiten;
+         $scope.btthour = antwort.taetigkeitenstunden;
+         $scope.schule = antwort.schule;
+         $scope.schulehour = antwort.schulehour;
+         $scope.abvorgang = antwort.arbeitsvorgang;
       
          $scope.calcHour(); 
          $scope.saveFileData();
