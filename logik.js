@@ -159,14 +159,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      }
    }
         
-    //Funktion um die persönlichen Daten zu speichern
-   $scope.savePersonal = function(name, company){
-       $scope.name = name;
-       $scope.firma = company;
-       $scope.abteilung = $scope.selectedAbteilung;
-       $scope.myValue = true;
-   };
-        
     //Funktion um die Nachweisdaten zu speichern    
    $scope.saveFileData = function(){
        $scope.nachweisnr  = $scope.ab_nw;
@@ -213,7 +205,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
    };
     
    $scope.calcHour = function(){
-      console.log(typeof $scope.btthour);
      $scope.btkhour = typeof $scope.btthour !== undefined ? $scope.btthour.split('\n') : "0";
      $scope.schoolhour = $scope.schulehour !== undefined ? $scope.schulehour.split('\n') : "0";
      var hours = 0;
@@ -357,10 +348,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       loadkey: key,
       },
       success: function(response){
-         console.log(JSON.parse(response));
          var antwort = JSON.parse(response);
          $scope.zeigeberichtsheft = true;
-         console.log(antwort.name);
          $scope.ab = new Date(antwort.datevon);
          $scope.bis = new Date(antwort.datebis);
          $scope.fullname = antwort.name;
