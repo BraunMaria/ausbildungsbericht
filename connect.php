@@ -7,7 +7,7 @@ $redis = new Redis();
 
 
 try {
-	$redis->connect('berichtsheftphp5-redis', 6379);
+	$redis->connect('berichtsheft-redis', 6379);
 } catch (Exception $e) {
 	echo $e;
 }
