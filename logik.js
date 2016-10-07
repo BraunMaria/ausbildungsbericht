@@ -222,7 +222,6 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
    };
     
    $scope.convertDataIntoJSON = function() {
-      
       var json = {
          name: $scope.fullname,
          datevon: $scope.ab,

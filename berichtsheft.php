@@ -93,7 +93,7 @@
 							</tr>
 							<tr>
 								<td>
-									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text" ng-hide="content" rows=18"></textarea>
+									<textarea ng-model="btt" class="conten-area" name="btt" id="btt" type="text" ng-hide="content" rows="18"></textarea>
 								</td>
 								<td>
 									<textarea ng-model="btthour" name="bbthour" id="bbthour" class="conten-area" rows=18" ng-change="calcHour()"></textarea>
