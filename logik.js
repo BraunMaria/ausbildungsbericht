@@ -65,13 +65,14 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
        kwdate.setHours(0,0,0);
        kwdate.setDate(kwdate.getDate() + 4 - (kwdate.getDay()||7));
        var yearStart = new Date(kwdate.getFullYear(),0,1);
-       var weekNo = Math.ceil(( ( (kwdate - yearStart) / 86400000) + 1)/7);
+       var weekNo = Math.ceil(( ( (kwdate - yearStart) / 86400000) + 1)/7) -1;
        return weekNo;
    }
 
     //Funktion zur Berechnung der Nachweisnummer
    $scope.nachweisnumber = function(){
      var currentdate = new Date();
+     console.log(currentdate);
      var currentyear = currentdate.getFullYear();
      var lastyear = currentyear -1;
      var firstazubi = new Date(currentyear, 8, 1);
@@ -91,12 +92,12 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      if (currentdate <= newyear) {
          var thisweeknumber = $scope.getweekNumber(currentdate);
 
-         var number = thisweeknumber - firstazubikw;
+         var number = thisweeknumber - firstazubikw -1;
          return number;
      }
      else{
          var thisweeknumber = $scope.getweekNumber(currentdate);
-         var number = thisweeknumber + allKW - firstazubikw;
+         var number = thisweeknumber + allKW - firstazubikw -1;
          return number;
      }
    }
