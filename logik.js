@@ -29,14 +29,14 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       $scope.abvorgang = "";
       $scope.schule = "";
       $scope.schulehour = "";
-      
+
       if ($scope.abteilungen.length >= 1) {
          $scope.selectedAbteilung = $scope.abteilungen[0];
       }
       $scope.zeigeberichtsheft = true;
       $scope.saveFileData();
    };
-   
+
    $scope.clearAll = function() {
       $scope.btt= "";
       $scope.btthour = "";
@@ -44,11 +44,11 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       $scope.schule = "";
       $scope.schulehour = "";
    };
-   
+
     //Funktion um Abteilungen im Dropdown hinzuzufügen
    $scope.delAbteilung = function(abteilung) {
       $scope.abteilungnonexistent = true;
-        
+
       for ( var i = 0; i < $scope.abteilungen.length; i++) {
           if ($scope.abteilungen[i] == abteilung) {
               $scope.abteilungen.splice(i, 1);
@@ -58,7 +58,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
           }
       }
     };
-    
+
     //Funktion zur Berechnung der Kalendar Woche
    $scope.getweekNumber = function(d){
        var kwdate = new Date(d);
@@ -68,7 +68,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
        var weekNo = Math.ceil(( ( (kwdate - yearStart) / 86400000) + 1)/7);
        return weekNo;
    }
-    
+
     //Funktion zur Berechnung der Nachweisnummer
    $scope.nachweisnumber = function(){
      var currentdate = new Date();
@@ -78,7 +78,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      var firstazubikw = $scope.getweekNumber(firstazubi);
      var firstdaylastyear = new Date(lastyear, 8, 1);
      var firstdaylastyearkw = $scope.getweekNumber(firstdaylastyear);
-     
+
      if (currentdate < firstazubi) {
         var newyear = new Date(lastyear, 11, 31);
         var allKW = $scope.getweekNumber(newyear);
@@ -87,20 +87,20 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         var newyear = new Date(currentyear, 11, 31);
         var allKW = $scope.getweekNumber(newyear);
      }
-     
+
      if (currentdate <= newyear) {
          var thisweeknumber = $scope.getweekNumber(currentdate);
-         
+
          var number = thisweeknumber - firstazubikw;
          return number;
      }
      else{
          var thisweeknumber = $scope.getweekNumber(currentdate);
          var number = thisweeknumber + allKW - firstazubikw;
-         return number; 
+         return number;
      }
    }
-    
+
     //Funktion zur Berechnung des Ausbildungsjahres
    $scope.ausbildungsjahr = function(jahr){
      var currentdate = new Date();
@@ -114,22 +114,22 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      }
       return ausbildungsjahr;
    }
-    
+
     //Funktion zu Berechnung von Kalendarwochen
    $scope.getWeekDates = function(d){
        $scope.currdate = new Date(d);
        var subtract = $scope.currdate.getDay() -1;
        var add = 4;
-       
+
        $scope.abnew = $scope.currdate.setDate($scope.currdate.getDate() - subtract);
        $scope.abpage = new Date ($scope.abnew)
        $scope.ab = new Date( $scope.abnew);
        $scope.bisnew = $scope.abpage.setDate($scope.abpage.getDate() + add);
        $scope.bis = new Date($scope.bisnew);
-       
-       
+
+
    };
-    
+
     //Funktion die beim Drucken die Felder füllt und Inputfelder ausblendet
    $scope.drucken = function(){
      $scope.myValue = true;
@@ -140,9 +140,9 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      $scope.name = $scope.fullname;
      $scope.nachweisnr  = $scope.ab_nw;
      $scope.jahr = $scope.ab_jahr;
-     
+
    };
-    
+
     //Funktion um Abteilungen aus Dropdown zu löschen
    $scope.addAbteilung = function(abteilung) {
      if (abteilung) {
@@ -158,8 +158,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
        $scope.selectedAbteilung = abteilung;
      }
    }
-        
-    //Funktion um die Nachweisdaten zu speichern    
+
+    //Funktion um die Nachweisdaten zu speichern
    $scope.saveFileData = function(){
        $scope.nachweisnr  = $scope.ab_nw;
        $scope.jahr = $scope.ab_jahr;
@@ -171,7 +171,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
        $scope.data = true;
        $scope.myValue = true;
    }
-    
+
     //Funktion um bei Krankheit die Felder auszufüllen
    $scope.fillKrank = function(){
      $scope.btt = "-Krank";
@@ -179,7 +179,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      $scope.btthour = "0";
      $scope.schule = "";
    }
-    
+
     //Funktion um bei Urlaub die Felder auszufüllen
    $scope.fillUrlaub = function(){
      $scope.btt = "- Urlaub";
@@ -187,7 +187,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      $scope.btthour = "0";
      $scope.schule = "";
    }
-    
+
     //Funktion um bei Schulwoche die Felder auszufüllen mit Fächern
    $scope.fillSchule = function(){
      $scope.schule = ""
@@ -203,7 +203,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
         }
      }
    };
-    
+
    $scope.calcHour = function(){
      $scope.btkhour = typeof $scope.btthour !== undefined ? $scope.btthour.split('\n') : "0";
      $scope.schoolhour = $scope.schulehour !== undefined ? $scope.schulehour.split('\n') : "0";
@@ -220,7 +220,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      }
      $scope.completehour = hours;
    };
-    
+
    $scope.convertDataIntoJSON = function() {
       var json = {
          name: $scope.fullname,
@@ -236,13 +236,13 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
          schule: $scope.schule,
          schulehour: $scope.schulehour
       };
-      
+
       return json;
      };
-   
+
      $scope.fetchBerichtshefte = function(key) {
       if (key) {
-        $.ajax({    
+        $.ajax({
          url: 'getKeys.php',
              type: 'post',
              data: {
@@ -280,33 +280,33 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
                         }
                         var keinname = false;
                      }
-                     
-                     
+
+
                  }
                  if (keinname) {
-                  
+
                     alert("Keine Berichtshefte unter diesem Namen gespeichert");
                     $scope.anzeigen = false;
                  }
                  $scope.berichtshefte  = str_array;
                  $scope.$apply();
-                 
-               
-            
+
+
+
          },
          error: function(response) {
              console.log(response);
          }
-     
+
       });
       }
       else(
          alert("Bitte geben Sie Ihren Namen ein")
       )
    }
-      
+
    $scope.saveDataToDb = function() {
-            
+
       var json = $scope.convertDataIntoJSON();
       var mykey = $scope.fullname + " " + $scope.ab_jahr + " " + $scope.ab_nw;;
       $scope.btthour = $scope.btthour !== undefined ? $scope.btthour : "0";
@@ -332,14 +332,14 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
           error: function() {
             console.log("fehlgeschlagen");
           }
-          
+
       });
       }
    };
-        
+
    $scope.getDatafromDB = function(name, jahr, nummer){
       var key = name + " " + jahr + " " + nummer;
-   
+
       jQuery.ajax({
       url: 'getData.php',
       type: 'post',
@@ -365,22 +365,22 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
          $scope.schule = antwort.schule;
          $scope.schulehour = antwort.schulehour;
          $scope.abvorgang = antwort.arbeitsvorgang;
-      
-         $scope.calcHour(); 
+
+         $scope.calcHour();
          $scope.saveFileData();
          $scope.$apply();
          $scope.showtable=true;
       }});
-      
+
    }
-   
+
    $scope.deleteDbTable = function(name, jahr, nummer) {
-			
+
       if (confirm('Wirklich löschen?')) {
-      
+
          var key = name + " " + jahr + " " + nummer;
          console.log('attempting to delete data to redis with following json:\n');
-         
+
          jQuery.ajax({
             url: 'deleteData.php',
             type: 'post',
@@ -416,7 +416,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
          });
       };
    }
-   
+
    Date.prototype.yyyymmdd = function() {
       var yyyy = this.getFullYear().toString();
       var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
@@ -424,5 +424,5 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
       return (dd[1] ? dd : "0" + dd[0]) + "."
               + (mm[1] ? mm : "0" + mm[0]) + "." + yyyy;
    };
-    
+
 }]);
