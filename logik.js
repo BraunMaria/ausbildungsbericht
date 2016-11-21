@@ -215,7 +215,7 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
            hours = hours + parseInt($scope.btkhour[i]);
         }
      }
-     for ( var i = 0; i < $scope.schoolhour.length-1; i++){
+     for ( var i = 0; i < $scope.schoolhour.length; i++){
         if ($scope.schoolhour[i] != "") {
            hours = hours + parseInt($scope.schoolhour[i]);
         }
