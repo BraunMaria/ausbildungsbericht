@@ -194,7 +194,8 @@ myApp.controller('MainCtrl', ['$scope',function($scope) {
      $scope.schule = ""
      $scope.btt = "";
      $scope.btthour = "";
-     $scope.abvorgang = "";;
+     $scope.abvorgang = "";
+     $scope.completehour = "40";
      for( var x = 0; x < $scope.faecher.length; x++){
         if ($scope.schule ) {
            $scope.schule = $scope.schule + $scope.faecher[x] + '\n';
