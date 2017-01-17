@@ -1,6 +1,6 @@
 <?php
 
-
+// für Docker angepasst
 $redis = new Redis();
 
 
